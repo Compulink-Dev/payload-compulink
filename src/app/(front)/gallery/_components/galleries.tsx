@@ -1,0 +1,51 @@
+import { Button } from '@/components/ui/button'
+import getGalleries from '@/lib/gallery/getGalleries'
+import Image from 'next/image'
+import React from 'react'
+
+async function GalleryList() {
+
+    const galleries = await getGalleries()
+
+    return (
+        <>
+            {galleries.length === 0 ? (
+                <div className="px-8">
+                    <p>No galleries found</p>
+                </div>
+            ) : (
+                galleries.slice(0, 2).map((item, index) => (
+                    <div
+                        key={index}
+                        className="w-96 h-full border rounded"
+                    >
+                        <Image
+                            src="/images/gallery.gif"
+                            height={400}
+                            width={500}
+                            alt={item.projectName}
+                            className="w-96 h-56 object-contain"
+                        />
+                        <div className="p-2">
+                            <h1 className="uppercase text-sm font-semibold">
+                                Technology
+                                <hr className="border bg-blue-700 py-[0.8px] w-24" />
+                            </h1>
+                            <p className="text-2xl font-bold">{item.projectName}</p>
+                            <p className="text-ellipsis overflow-hidden py-2 text-gray-600">
+                                {item.description}
+                            </p>
+                            <p className="text-gray-700">
+                                By <span className="text-black">{item.company}</span> -{" "}
+                                {/* {dateFormat(item.createdAt)} */}
+                            </p>
+                            <Button className="bg-blue-700 hover:bg-blue-500 my-2">View More</Button>
+                        </div>
+                    </div>
+                ))
+            )}
+        </>
+    )
+}
+
+export default GalleryList
