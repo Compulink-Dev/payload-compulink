@@ -1,7 +1,5 @@
 import Image from 'next/image'
 import React from 'react'
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
 import LinkButton from '@/components/link-button'
 import { Dot } from 'lucide-react'
 

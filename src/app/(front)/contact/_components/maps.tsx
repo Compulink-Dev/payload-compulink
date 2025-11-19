@@ -1,16 +1,17 @@
-"use client";
-import React from "react";
-import { useMemo } from "react";
-import { GoogleMap, Marker } from "@react-google-maps/api";
+'use client'
+import React from 'react'
+import { useMemo } from 'react'
+//@ts-expect-error Google Maps types are not recognized
+import { GoogleMap, Marker } from '@react-google-maps/api'
 
 function Maps() {
-    const center = useMemo(() => ({ lat: 44, lng: -80 }), []);
+  const center = useMemo(() => ({ lat: 44, lng: -80 }), [])
 
-    return (
-        <GoogleMap zoom={10} center={center} mapContainerClassName="map-container">
-            <Marker position={center} />
-        </GoogleMap>
-    );
+  return (
+    <GoogleMap zoom={10} center={center} mapContainerClassName="map-container">
+      <Marker position={center} />
+    </GoogleMap>
+  )
 }
 
-export default Maps;
+export default Maps

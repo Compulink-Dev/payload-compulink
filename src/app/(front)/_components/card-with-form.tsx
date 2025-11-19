@@ -1,12 +1,15 @@
 import * as React from 'react'
 
-import { Button } from './ui/button'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card'
-import { Input } from './ui/input'
-import { Label } from './ui/label'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select'
+import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 import Link from 'next/link'
-import FillButton from './fill-button'
 import LinkButton from './link-button'
 
 export function CardWithForm({ name, link }: { name: string; link: string }) {

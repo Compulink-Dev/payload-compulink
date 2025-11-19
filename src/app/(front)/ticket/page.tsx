@@ -1,7 +1,6 @@
-import LinkButton from "@/components/linkButton";
-import MainLayout from "@/components/mainLayout";
-import React from "react";
-import Hero from "../_components/hero";
+import LinkButton from '@/components/link-button'
+import React from 'react'
+import Hero from '../_components/hero'
 
 function Ticket() {
   return (
@@ -40,7 +39,7 @@ function Ticket() {
                 ></textarea>
               </div>
               <div className="flex items-end">
-                <LinkButton name={"Send Request"} link={""} />
+                <LinkButton name={'Send Request'} link={''} />
               </div>
             </div>
           </div>
@@ -65,7 +64,7 @@ function Ticket() {
                 </div> */}
       </div>
     </div>
-  );
+  )
 }
 
-export default Ticket;
+export default Ticket

@@ -1,7 +1,7 @@
-import MainLayout from "@/components/mainLayout";
-import React from "react";
-import LinkButton from "@/components/linkButton";
-import Hero from "../_components/hero";
+import MainLayout from '@/components/mainLayout'
+import React from 'react'
+import LinkButton from '@/components/link-button'
+import Hero from '../_components/hero'
 
 function BookMeeting() {
   return (
@@ -21,9 +21,7 @@ function BookMeeting() {
                 <input className="bg-gray-100 py-2 px-4 rounded-lg w-full outline-none border-none col-span-3" />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-4  gap-4">
-                <p className="font-bold text-sm col-span-1">
-                  Business Category
-                </p>
+                <p className="font-bold text-sm col-span-1">Business Category</p>
                 <input className="bg-gray-100 py-2 px-4 rounded-lg w-full outline-none border-none col-span-3" />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-4  gap-4">
@@ -31,7 +29,7 @@ function BookMeeting() {
                 <input className="bg-gray-100 py-2 px-4 rounded-lg w-full outline-none border-none col-span-3" />
               </div>
               <div className="flex items-end">
-                <LinkButton name={"Book Now"} link={""} />
+                <LinkButton name={'Book Now'} link={''} />
               </div>
             </div>
           </div>
@@ -56,7 +54,7 @@ function BookMeeting() {
                 </div> */}
       </div>
     </div>
-  );
+  )
 }
 
-export default BookMeeting;
+export default BookMeeting

@@ -1,9 +1,9 @@
-import React from "react";
-import MainLayout from "@/components/mainLayout";
-import Event from "./_components/event";
-import EventCards from "./_components/eventCards";
-import EventCard from "./_components/eventCard";
-import Hero from "../_components/hero";
+import React from 'react'
+import MainLayout from '@/components/mainLayout'
+import Event from './_components/event'
+import EventCards from './_components/eventCards'
+import EventCard from './_components/eventCard'
+import Hero from '../_components/hero'
 
 async function Events() {
   return (
@@ -17,7 +17,7 @@ async function Events() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Events;
+export default Events

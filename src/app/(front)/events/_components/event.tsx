@@ -5,20 +5,10 @@ import LinkButton from '@/components/linkButton'
 import { EventModal } from './eventModal'
 import { Locate, Timer } from 'lucide-react'
 
-const getEvents = async () => {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_ROUTE}/api/events`, {})
-    if (!res.ok) {
-      throw new Error('Failed to fetch events')
-    }
-    return res.json()
-  } catch (error) {
-    console.log(error)
-  }
-}
+import getEventsFromPayload from '@/lib/events/getEvents'
 
 async function Event() {
-  const { events = [] } = (await getEvents()) || {}
+  const events = await getEventsFromPayload()
   return (
     <>
       {events?.slice(0, 1).map((events: any, index: any) => (

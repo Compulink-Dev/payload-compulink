@@ -1,54 +1,54 @@
-"use client";
-import React, { useState } from "react";
-import ContactMap from "./_components/contactMap";
-import emailjs from "emailjs-com";
-import { Button } from "@/components/ui/button";
-import { toast } from "react-hot-toast";
-import Hero from "../_components/hero";
+'use client'
+import React, { useState } from 'react'
+import ContactMap from './_components/contactMap'
+import emailjs from 'emailjs-com'
+import { Button } from '@/components/ui/button'
+import Hero from '../_components/hero'
+import { toast } from 'sonner'
 
 function Contact() {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-    phone: "",
-  });
+    name: '',
+    email: '',
+    message: '',
+    phone: '',
+  })
 
-  const [loading, setLoading] = useState(false); // Loading state
+  const [loading, setLoading] = useState(false) // Loading state
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
-    }));
-  };
+    }))
+  }
 
   const sendEmail = (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true); // Start loading
+    e.preventDefault()
+    setLoading(true) // Start loading
 
     emailjs
       .send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
         formData,
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
       )
       .then(
-        (result) => {
-          toast.success("Email sent successfully!");
-          setFormData({ name: "", email: "", message: "", phone: "" }); // Clear form
-          setLoading(false); // Stop loading
+        (result: any) => {
+          toast.success('Email sent successfully!')
+          setFormData({ name: '', email: '', message: '', phone: '' }) // Clear form
+          setLoading(false) // Stop loading
         },
-        (error) => {
-          toast.error("Failed to send email. Please try again.");
-          setLoading(false); // Stop loading
-        }
-      );
-  };
+        (error: any) => {
+          toast.error('Failed to send email. Please try again.')
+          console.log('Error sending message ', error)
+
+          setLoading(false) // Stop loading
+        },
+      )
+  }
 
   return (
     <div>
@@ -112,7 +112,7 @@ function Contact() {
                     className="bg-red-600 hover:bg-bg-red-400"
                     disabled={loading} // Disable button while loading
                   >
-                    {loading ? "Sending..." : "Send Message"}
+                    {loading ? 'Sending...' : 'Send Message'}
                   </Button>
                 </div>
               </div>
@@ -120,15 +120,13 @@ function Contact() {
           </div>
         </div>
         <div className="flex flex-col items-center justify-center py-10">
-          <h1 className="text-2xl text-blue-600 font-semibold uppercase">
-            Where You Can Find Us
-          </h1>
+          <h1 className="text-2xl text-blue-600 font-semibold uppercase">Where You Can Find Us</h1>
           <div>{/* ContactMap or Google Maps Integration */}</div>
         </div>
         <ContactMap />
       </div>
     </div>
-  );
+  )
 }
 
-export default Contact;
+export default Contact

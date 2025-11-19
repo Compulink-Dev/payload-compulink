@@ -1,7 +1,8 @@
 'use client'
-import { Button } from "@react-email/components";
+//@ts-expect-error React Email types are not recognized
+import { Button } from '@react-email/components'
 import React from 'react'
-import EmailForm from "./_components/EmailForm";
+import EmailForm from './_components/EmailForm'
 
 // Frontend example of sending the request
 const sendEmail = async () => {
@@ -15,21 +16,22 @@ const sendEmail = async () => {
       subject: 'Hello from Next.js',
       html: '<strong>This is a test email</strong>',
     }),
-  });
+  })
 
-  const data = await res.json();
-  console.log(data);
-};
-
+  const data = await res.json()
+  console.log(data)
+}
 
 function SendMail() {
   return (
     <div className="p-4">
       <Button
-        style={{ background: "#000", color: "#fff", padding: "12px 20px" }}
+        style={{ background: '#000', color: '#fff', padding: '12px 20px' }}
         href="https://example.com"
-      // onClick={() => sendEmail()}
-      >Send Email</Button>
+        onClick={() => sendEmail()}
+      >
+        Send Email
+      </Button>
 
       <div className="">
         <EmailForm />

@@ -27,9 +27,10 @@ export default function VacancyPage() {
       try {
         const response = await fetch("/api/vacancies");
         const data = await response.json();
-        setVacancies(data);
+        setVacancies(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error("Error fetching vacancies:", error);
+        setVacancies([]);
       } finally {
         setLoading(false);
       }
@@ -48,6 +49,10 @@ export default function VacancyPage() {
         {loading ? (
           <div className="flex justify-center items-center h-64">
             <p>Loading vacancies...</p>
+          </div>
+        ) : vacancies.length === 0 ? (
+          <div className="flex justify-center items-center h-64">
+            <p className="text-gray-500">No vacancies available at the moment.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
