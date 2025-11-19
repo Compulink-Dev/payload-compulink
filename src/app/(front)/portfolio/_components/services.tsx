@@ -1,53 +1,79 @@
 import Image from 'next/image'
-import { GoDotFill } from 'react-icons/go'
+import { CheckCircle } from 'lucide-react'
 import React from 'react'
 import LinkButton from '@/components/link-button'
 
 function Services() {
-  return (
-    <div className="grid grid-cols-1 md:grid md:grid-cols-2">
-      <div className="flex flex-col items-center justify-center pt-12">
-        <Image
-          src={'/images/ab.gif'}
-          alt="compulink gif"
-          height={500}
-          width={500}
-          className=" p-6 h-[450px]  w-[600px] object-cover  rounded-2xl"
-        />
-      </div>
-      <div className="flex flex-col px-10 py-8">
-        <h1 className="font-semibold text-blue-500 text-4xl uppercase">
-          Welcome to compulink systems
-        </h1>
-        <p className="text-start text-2xl  font-bold">
-          Compulink Systems has been in the IT Ecosystem for 30 Years.
-        </p>
-        <p className="py-2">
-          In these years Compulink Systems has managed to deliver high standard products and
-          services to various institutions in the service scope of networking services, cyber
-          security, software services and hardware supply.
-        </p>
-        <div className="px-20">
-          <div className="flex gap-2 py-2 pl-14 items-center -translate-x-[132px]">
-            <GoDotFill className="text-blue-500" />
-            <h1 className="">Innovative Software Development</h1>
-          </div>
-          <div className="flex gap-2 py-2 pl-14 items-center -translate-x-[132px]">
-            <GoDotFill className="text-blue-500" />
-            <h1 className="">Innovative Hardware Development</h1>
-          </div>{' '}
-          <div className="flex gap-2 py-2 pl-14 items-center -translate-x-[132px]">
-            <GoDotFill className="text-blue-500" />
-            <h1 className="">Innovative Network Development</h1>
-          </div>{' '}
-          <div className="flex gap-2 py-2 pl-14 items-center -translate-x-[132px]">
-            <GoDotFill className="text-blue-500" />
-            <h1 className="">Innovative Cyber Security Development</h1>
-          </div>
-        </div>
+  const features = [
+    'Innovative Software Development & AI Solutions',
+    'Advanced Hardware Infrastructure Setup',
+    'Comprehensive Network Architecture & Security',
+    'Enterprise Cyber Security Frameworks',
+    'Cloud Migration & Optimization',
+    'Digital Transformation Consulting',
+    'IT Support & Managed Services',
+    'Custom Business Process Automation',
+  ]
 
-        <div className="mt-4">
-          <LinkButton link="/portfolio" name="Read more" />
+  return (
+    <div className="bg-gradient-to-br from-blue-50 to-gray-100 py-16 lg:py-24">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Image Section */}
+          <div className="relative order-2 lg:order-1">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+              <Image
+                src={'/images/ab.gif'}
+                alt="Compulink Systems - Comprehensive IT Services"
+                height={600}
+                width={600}
+                className="w-full h-auto object-cover"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent"></div>
+            </div>
+
+            {/* Experience Badge */}
+            <div className="absolute -bottom-6 -left-6 bg-blue-600 text-white p-6 rounded-2xl shadow-2xl">
+              <div className="text-center">
+                <div className="text-3xl font-bold">30+</div>
+                <div className="text-sm font-medium">Years in IT</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Content Section */}
+          <div className="flex flex-col order-1 lg:order-2">
+            <h1 className="text-blue-600 uppercase font-semibold tracking-wider text-lg mb-4">
+              Welcome to Compulink Systems
+            </h1>
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-6 leading-tight">
+              Three Decades of Digital Excellence & Innovation
+            </h2>
+            <p className="text-gray-600 text-lg leading-relaxed mb-8">
+              For over 30 years, Compulink Systems has been delivering cutting-edge IT solutions to
+              institutions across various sectors. Our comprehensive service portfolio spans
+              networking, cybersecurity, software development, and hardware solutions, making us
+              your trusted partner in digital transformation.
+            </p>
+
+            {/* Features Grid */}
+            <div className="grid grid-cols-1 gap-4 mb-8">
+              {features.map((feature, index) => (
+                <div key={index} className="flex items-center gap-4">
+                  <CheckCircle className="text-blue-500 flex-shrink-0" size={24} />
+                  <span className="text-gray-700 font-medium text-lg">{feature}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4">
+              <LinkButton link="/about" name="Our Story" />
+              <button className="px-8 py-4 border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 rounded-lg font-medium text-lg">
+                Download Capability Statement
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
