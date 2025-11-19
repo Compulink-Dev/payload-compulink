@@ -104,15 +104,13 @@ export default function BlogPage() {
     }
   }
 
-  // if (!posts.length) {
-  //   return (
-  //     <div className="mt-48">
-  //       <div className="px-8">
-  //         <p className="m-8">Loading or no posts available.</p>
-  //       </div>
-  //     </div>
-  //   )
-  // }
+  if (loading || posts.length === 0) {
+    return (
+      <div className="p-8 mt-24">
+        <p>Loading posts...</p>
+      </div>
+    )
+  }
 
   const [bannerPost, ...latestPosts] = posts
 

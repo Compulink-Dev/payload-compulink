@@ -1,7 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import FillButton from '../../../../components/fill-button'
-import LinkButton from '@/components/linkButton'
+import LinkButton from '@/components/link-button'
 import { LocateIcon, Timer } from 'lucide-react'
 
 const getEvents = async () => {

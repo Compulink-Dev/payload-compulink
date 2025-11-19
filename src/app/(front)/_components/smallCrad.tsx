@@ -1,8 +1,14 @@
 import LinkButton from '@/components/link-button'
-import { Button } from '@/components/ui/button'
 import React from 'react'
 
-function SmallCard({ icon, name, link, description }: any) {
+interface SmallCardProps {
+  icon: React.ReactNode
+  name: string
+  link: string
+  description: string
+}
+
+function SmallCard({ icon, name, link, description }: SmallCardProps) {
   return (
     <div className=" flex flex-col items-center  w-64 h-72 border-4 border-blue-700 bg-blue-950 rounded-lg">
       <div className="py-6 text-white">{icon}</div>

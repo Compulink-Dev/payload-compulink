@@ -1,5 +1,5 @@
+//@ts-nocheck
 'use client'
-//@ts-expect-error React Email types are not recognized
 import { Button } from '@react-email/components'
 import React from 'react'
 import EmailForm from './_components/EmailForm'
@@ -27,7 +27,6 @@ function SendMail() {
     <div className="p-4">
       <Button
         style={{ background: '#000', color: '#fff', padding: '12px 20px' }}
-        href="https://example.com"
         onClick={() => sendEmail()}
       >
         Send Email

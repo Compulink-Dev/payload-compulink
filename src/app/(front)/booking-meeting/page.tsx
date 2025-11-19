@@ -1,6 +1,4 @@
-import MainLayout from '@/components/mainLayout'
 import React from 'react'
-import LinkButton from '@/components/link-button'
 import Hero from '../_components/hero'
 
 function BookMeeting() {
@@ -29,7 +27,15 @@ function BookMeeting() {
                 <input className="bg-gray-100 py-2 px-4 rounded-lg w-full outline-none border-none col-span-3" />
               </div>
               <div className="flex items-end">
-                <LinkButton name={'Book Now'} link={''} />
+                <div className="flex items-end">
+                  <button
+                    type="submit"
+                    className="px-5 py-3 text-white bg-blue-600 rounded-lg hover:bg-blue-700"
+                    // onClick={handleSubmit}
+                  >
+                    Book Now
+                  </button>
+                </div>
               </div>
             </div>
           </div>

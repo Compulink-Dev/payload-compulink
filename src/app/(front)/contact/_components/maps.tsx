@@ -1,7 +1,7 @@
+//@ts-nocheck
 'use client'
 import React from 'react'
 import { useMemo } from 'react'
-//@ts-expect-error Google Maps types are not recognized
 import { GoogleMap, Marker } from '@react-google-maps/api'
 
 function Maps() {

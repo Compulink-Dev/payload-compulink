@@ -1,7 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import FillButton from '../../../../components/fill-button'
-import LinkButton from '@/components/linkButton'
+import LinkButton from '@/components/link-button'
 import { EventModal } from './eventModal'
 import { Locate, Timer } from 'lucide-react'
 
@@ -11,7 +10,7 @@ async function Event() {
   const events = await getEventsFromPayload()
   return (
     <>
-      {events?.slice(0, 1).map((events: any, index: any) => (
+      {events?.slice(0, 1).map((events, index) => (
         <div key={index} className="bg-slate-50 -translate-y-20">
           <h1 className="text-2xl font-semibold text-center py-6">Upcoming Events</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 py-8 px-4">
