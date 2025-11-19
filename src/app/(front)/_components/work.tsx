@@ -1,5 +1,5 @@
 import React from 'react'
-import SmallCard from './smallCrad'
+import SmallCard from './smallCard'
 import LinkButton from '@/components/link-button'
 import { Download, LockIcon, Network, Shield, Cloud, Code } from 'lucide-react'
 

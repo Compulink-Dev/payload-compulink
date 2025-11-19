@@ -189,7 +189,7 @@ function Footer() {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-sm text-center md:text-left">
-              Copyright © 2024 Compulink Systems. All Rights Reserved
+              Copyright © {new Date().getFullYear()} Compulink Systems. All Rights Reserved
             </p>
             <div className="flex items-center gap-6 text-sm text-gray-400">
               <Link href="/privacy" className="hover:text-white transition-colors">
