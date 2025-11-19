@@ -1,73 +1,86 @@
 import React from 'react'
 import LinkButton from '@/components/link-button'
-import { ChartArea, Download, DownloadCloud, Lock, Network } from 'lucide-react'
+import { ChartArea, Download, DownloadCloud, Lock, Network, ArrowRight } from 'lucide-react'
 
 export function ServiceCard({ icon, name, description, link }: any) {
   return (
-    <div className=" flex w-full flex-col items-center h-auto md:h-96 border-2 pb-4 md:pb-0 border-blue-900 rounded-lg">
-      <div className="py-6 pt-2 text-red-800">{icon}</div>
-      <h1 className="text-red-700 font-semibold text-center text-xl">{name}</h1>
-      <p className="px-4 text-gray-700 py-2">{description}</p>
-      <LinkButton link={link} name={'Explore'} />
+    <div className="group bg-white hover:bg-blue-50 border border-gray-200 hover:border-blue-300 rounded-xl p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 h-full flex flex-col">
+      <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-blue-700 transition-colors">
+        {name}
+      </h3>
+      <p className="text-gray-600 leading-relaxed flex-grow mb-4">{description}</p>
+      <div className="mt-auto">
+        <LinkButton link={link} name={'Explore'} />
+      </div>
     </div>
   )
 }
 
 function Service() {
+  const services = [
+    {
+      icon: <DownloadCloud />,
+      name: 'Cloud Computing',
+      description:
+        'Cloud technology centralizes data capture, storage, and interpretation processes while reducing costs and generating faster, more precise data-led insights to drive performance.',
+      link: '/services/cloud-computing',
+    },
+    {
+      icon: <Network />,
+      name: 'Networking',
+      description:
+        'Comprehensive computer networking solutions that transport and exchange data efficiently, including design, construction, maintenance, and operation of network infrastructure.',
+      link: '/services/networks',
+    },
+    {
+      icon: <Download />,
+      name: 'Software Development',
+      description:
+        'End-to-end solutions including AI, data science, API integration, web & mobile solutions, chatbots, and pipeline development for organizational automation and reporting.',
+      link: '/services/software',
+    },
+    {
+      icon: <Lock />,
+      name: 'Cyber Security',
+      description:
+        'Advanced security solutions protecting organizations against cyber attacks, preventing downtime, data theft, reputation damage, and compliance fines.',
+      link: '/services/cyber-security',
+    },
+    {
+      icon: <ChartArea />,
+      name: 'Sales Solutions',
+      description:
+        'Strategic sales solutions tailored to different regions, products, and target customers to drive business growth and market expansion.',
+      link: '/sales',
+    },
+  ]
+
   return (
-    <div className="bg-scroll bg-gradient-to-r from-gray-100 bg-opacity h-full w-full text-gray-700 py-6">
-      <div className="flex flex-col items-center justify-center">
-        <h1 className="text-center   uppercase text-xl font-semibold md:text-2xl py-4">
-          Our Services
-        </h1>
-        <h2 className="text-3xl md:text-4xl text-blue-800 font-bold w-96 md:w-[500px] py-6 text-center">
-          Bringing Technology from the horizon
-        </h2>
-        <p className="text-center text-gray-700 w-96 md:w-[600px]">
-          Delivering unmatched service is what we live for. We create a culture of care and service
-          where our customer comes first. .
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 m-10 mx-14">
-          <ServiceCard
-            icon={<DownloadCloud size={'2.5rem'} color="red" />}
-            name={'Cloud Computing'}
-            description={
-              'Cloud technology can centralize the data capture, storage, and interpretation processes. It can also reduce the costs associated with these critical processes and generate far richer, more precise, faster data-led insights, which banks can use to drive performance. '
-            }
-            link="/services/cloud-computing"
-          />
-          <ServiceCard
-            icon={<Network size={'2.5rem'} color="red" />}
-            name={'Networking'}
-            description={
-              'Networking, also known as computer networking, is the practice of transporting and exchanging data between nodes over a shared medium in an information system. Networking comprises not only the design, construction and use of a network, but also the management, maintenance and operation of the network infrastructure, software and policies.'
-            }
-            link="/services/networks"
-          />
-          <ServiceCard
-            icon={<Download size={'2.5rem'} color="red" />}
-            name={'Software Development'}
-            description={
-              'We offer solutions ranging in the given scope ( ARTIFICIAL INTELLIGENCE, DATA SCIENCE SOLUTIONS, API INTEGRATION, WEB & MOBILE SOLUTIONS, CHATBOTS, PIPELINE DEVELOPMENT). Use of the software is important for automation of the organisations tasks as well as reporting the progress or lags in the organisations activities.'
-            }
-            link="/services/software"
-          />
-          <ServiceCard
-            icon={<Lock size={'2.5rem'} color="red" />}
-            name={'Cyber Security'}
-            description={
-              'Cyber security solutions are technological tools and services that help protect organizations against cyber attacks, which can result in application downtime, theft of sensitive data, damage to reputation, compliance fines, and other adverse consequences.'
-            }
-            link="/services/cyber-security"
-          />
-          <ServiceCard
-            icon={<ChartArea size={'2.5rem'} color="red" />}
-            name={'Sales'}
-            description={
-              "Sales is a term used to describe the activities that lead to the selling of goods or services. Businesses have sales organizations that are broken up into different teams. And these sales teams are often determined based on the region they're selling to, the product or service they're selling, and the target customer."
-            }
-            link="sales"
-          />
+    <div className="bg-gradient-to-br from-gray-50 to-blue-50 py-16 lg:py-24">
+      <div className="container mx-auto px-4">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <h1 className="text-blue-600 uppercase font-semibold tracking-wider text-lg mb-4">
+            Our Services
+          </h1>
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
+            Bringing Technology from the Horizon
+          </h2>
+          <p className="text-gray-600 text-lg leading-relaxed">
+            Delivering unmatched service is what we live for. We create a culture of care and
+            service where our customer comes first, ensuring excellence in every solution.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {services.map((service, index) => (
+            <ServiceCard
+              key={index}
+              icon={service.icon}
+              name={service.name}
+              description={service.description}
+              link={service.link}
+            />
+          ))}
         </div>
       </div>
     </div>

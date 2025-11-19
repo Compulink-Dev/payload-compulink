@@ -9,6 +9,7 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel'
 import { testimonies } from '@/lib/constants/data'
+import Autoplay from 'embla-carousel-autoplay'
 
 export default function Testimonies() {
   return (
@@ -18,11 +19,16 @@ export default function Testimonies() {
           align: 'center',
           loop: true,
         }}
+        plugins={[
+          Autoplay({
+            delay: 5000,
+          }),
+        ]}
         className="w-full max-w-4xl mx-auto"
       >
         <CarouselContent>
           {testimonies.map((testimony: any) => (
-            <CarouselItem key={testimony.id} className="md:basis-2/3 lg:basis-1/2">
+            <CarouselItem key={testimony.id} className="basis-full">
               <div className="p-4">
                 <Card className="bg-background border-border">
                   <CardContent className="flex flex-col items-center justify-center p-6">

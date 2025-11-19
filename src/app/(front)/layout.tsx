@@ -1,23 +1,23 @@
 import React from 'react'
-import { Header } from './_components/header'
+import Navbar from './_components/navbar'
 import Footer from '@/app/(front)/_components/bottom'
 import './globals.css'
 import { Toaster } from '@/components/ui/sonner'
 
 export const metadata = {
-  description: 'Compulink',
-  title: 'Compulink',
+  description: 'Compulink - Building Digital Products & Brands',
+  title: 'Compulink | IT Solutions & Services',
 }
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
+        <Navbar />
         <main>
-          <Header />
           {children}
-          <Footer />
         </main>
+        <Footer />
         <Toaster />
       </body>
     </html>

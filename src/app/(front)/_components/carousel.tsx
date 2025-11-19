@@ -9,6 +9,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
+import Autoplay from 'embla-carousel-autoplay'
 
 const PartnerCard = ({ image, link }: { image: string; link: string }) => {
   return (
@@ -79,6 +80,11 @@ function HomeCarousel() {
           align: 'start',
           loop: true,
         }}
+        plugins={[
+          Autoplay({
+            delay: 3000,
+          }),
+        ]}
         className="w-full max-w-6xl mx-auto"
       >
         <CarouselContent>

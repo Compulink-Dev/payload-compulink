@@ -3,8 +3,13 @@ import React, { useState } from 'react'
 import ContactMap from './_components/contactMap'
 import emailjs from 'emailjs-com'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import { Label } from '@/components/ui/label'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import Hero from '../_components/hero'
 import { toast } from 'sonner'
+import { Mail, Phone, MapPin } from 'lucide-react'
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -53,77 +58,146 @@ function Contact() {
   return (
     <div>
       <Hero backImage="comm2.jpg" image="" />
-      <div className="">
-        <div className="h-full py-8 my-8 w-full flex justify-center items-center">
-          <div className="h-full w-full md:w-2/4 mx-4 md:mx-0 p-8 rounded-lg border border-red-500">
-            <p className="font-bold text-xl text-center py-2">Contact Us</p>
-            <form onSubmit={sendEmail} action="" className="">
-              <div className="flex flex-col mt-6 gap-4">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                  <p className="font-bold text-sm col-span-1">Name</p>
-                  <input
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+          {/* Contact Form */}
+          <Card className="shadow-lg">
+            <CardHeader>
+              <CardTitle className="text-2xl">Get In Touch</CardTitle>
+              <CardDescription>
+                Fill out the form below and we&apos;ll get back to you as soon as possible.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={sendEmail} className="space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Name</Label>
+                  <Input
                     id="name"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="bg-gray-100 py-2 px-4 rounded-lg w-full outline-none border-none col-span-3"
+                    placeholder="Your name"
                   />
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                  <p className="font-bold text-sm col-span-1">Email</p>
-                  <input
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input
                     type="email"
                     id="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="bg-gray-100 py-2 px-4 rounded-lg w-full outline-none border-none col-span-3"
+                    placeholder="your.email@example.com"
                   />
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                  <p className="font-bold text-sm col-span-1">Phone Number</p>
-                  <input
-                    type="phone"
+                <div className="space-y-2">
+                  <Label htmlFor="phone">Phone Number</Label>
+                  <Input
+                    type="tel"
                     id="phone"
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
                     required
-                    className="bg-gray-100 py-2 px-4 rounded-lg w-full outline-none border-none col-span-3"
+                    placeholder="+263 XXX XXX XXX"
                   />
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                  <p className="font-bold text-sm col-span-1">Message</p>
-                  <textarea
+                <div className="space-y-2">
+                  <Label htmlFor="message">Message</Label>
+                  <Textarea
                     id="message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     required
                     rows={5}
-                    className="bg-gray-100 rounded py-2 px-4 w-full outline-none border-none col-span-3"
-                  ></textarea>
+                    placeholder="Tell us how we can help you..."
+                  />
                 </div>
-                <div className="flex items-end">
-                  <Button
-                    type="submit"
-                    className="bg-red-600 hover:bg-bg-red-400"
-                    disabled={loading} // Disable button while loading
-                  >
-                    {loading ? 'Sending...' : 'Send Message'}
-                  </Button>
+                <Button type="submit" className="w-full" disabled={loading}>
+                  {loading ? 'Sending...' : 'Send Message'}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+
+          {/* Contact Information */}
+          <div className="space-y-6">
+            <Card className="shadow-lg">
+              <CardHeader>
+                <CardTitle className="text-2xl">Contact Information</CardTitle>
+                <CardDescription>
+                  Reach out to us through any of these channels.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-blue-100 rounded-lg">
+                    <Mail className="h-6 w-6 text-blue-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-1">Email</h3>
+                    <p className="text-sm text-muted-foreground">info@compulink.co.zw</p>
+                    <p className="text-sm text-muted-foreground">support@compulink.co.zw</p>
+                  </div>
                 </div>
-              </div>
-            </form>
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-blue-100 rounded-lg">
+                    <Phone className="h-6 w-6 text-blue-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-1">Phone</h3>
+                    <p className="text-sm text-muted-foreground">+263 4 251 575</p>
+                    <p className="text-sm text-muted-foreground">+263 4 251 576</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-blue-100 rounded-lg">
+                    <MapPin className="h-6 w-6 text-blue-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-1">Address</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Compulink House, 13 Stirling Road<br />
+                      Workington, Harare, Zimbabwe
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="shadow-lg">
+              <CardHeader>
+                <CardTitle>Business Hours</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="font-medium">Monday - Friday:</span>
+                    <span className="text-muted-foreground">8:00 AM - 5:00 PM</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-medium">Saturday:</span>
+                    <span className="text-muted-foreground">9:00 AM - 1:00 PM</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-medium">Sunday:</span>
+                    <span className="text-muted-foreground">Closed</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center py-10">
-          <h1 className="text-2xl text-blue-600 font-semibold uppercase">Where You Can Find Us</h1>
-          <div>{/* ContactMap or Google Maps Integration */}</div>
+
+        {/* Map Section */}
+        <div className="mt-12">
+          <h2 className="text-3xl font-bold text-center mb-8">Find Us</h2>
+          <ContactMap />
         </div>
-        <ContactMap />
       </div>
     </div>
   )

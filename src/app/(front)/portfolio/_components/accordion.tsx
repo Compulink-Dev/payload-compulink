@@ -1,47 +1,80 @@
 import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
-} from "@/components/ui/accordion"
-import { BringToFront, Globe, ScanEye } from "lucide-react"
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
+import { BringToFront, Globe, ScanEye, Target, Users, Lightbulb } from 'lucide-react'
 
 export function AccordionTabs() {
-    return (
-        <Accordion type="single" collapsible className="w-full p-8">
-            <AccordionItem value="item-1">
-                <AccordionTrigger className="py-4">
-                    <div className="flex gap-4 text-2xl items-center">
-                        <Globe width={40} height={40} />
-                        <p className="font-bold">Our Mission</p>
-                    </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-lg">
-                    Our mission is to innovate specific technologies that meet a need and transform experiences through innovation. We are committed to values such as excellence, integrity, sustainability and advancing the industry while embracing diversity.
-                </AccordionContent>
+  const items = [
+    {
+      value: 'item-1',
+      icon: <Target className="text-blue-400" />,
+      title: 'Our Mission',
+      content:
+        'To innovate cutting-edge technologies that meet evolving needs and transform experiences through digital excellence. We are committed to values such as excellence, integrity, sustainability, and advancing the IT industry while embracing diversity and fostering innovation.',
+    },
+    {
+      value: 'item-2',
+      icon: <ScanEye className="text-green-400" />,
+      title: 'Our Vision',
+      content:
+        "To lead Zimbabwe's technology landscape by pioneering innovative solutions in software development, networking, and cybersecurity. We aspire to create a digital-first world where technology enhances human potential, fosters sustainable growth, and connects communities for a better tomorrow.",
+    },
+    {
+      value: 'item-3',
+      icon: <BringToFront className="text-purple-400" />,
+      title: 'Our Strategy',
+      content:
+        'Achieving technological leadership through strategic partnerships, continuous R&D, and market expansion. We optimize our offerings through digital transformation initiatives, cloud adoption, and cybersecurity frameworks. By embracing AI and emerging technologies, we aim to sustain long-term growth while delivering exceptional value to our clients.',
+    },
+    {
+      value: 'item-4',
+      icon: <Users className="text-orange-400" />,
+      title: 'Our Values',
+      content:
+        'Excellence in delivery, integrity in partnerships, innovation in solutions, and sustainability in growth. We believe in collaborative success, continuous learning, and making a positive impact on the communities we serve through technology empowerment and digital inclusion.',
+    },
+    {
+      value: 'item-5',
+      icon: <Lightbulb className="text-yellow-400" />,
+      title: 'Our Innovation',
+      content:
+        "Driving digital transformation through research-driven solutions, agile methodologies, and future-ready technologies. We invest in emerging trends like AI, IoT, and blockchain to create solutions that not only solve today's challenges but also anticipate tomorrow's opportunities.",
+    },
+  ]
+
+  return (
+    <div className="container mx-auto py-16">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-4">Our Core Philosophy</h2>
+          <p className="text-xl text-gray-300">
+            Driving innovation through purpose, vision, and strategic excellence
+          </p>
+        </div>
+
+        <Accordion type="single" collapsible className="w-full">
+          {items.map((item) => (
+            <AccordionItem
+              key={item.value}
+              value={item.value}
+              className="mb-4 border border-gray-700 rounded-lg overflow-hidden"
+            >
+              <AccordionTrigger className="py-6 px-6 hover:bg-gray-800 transition-colors">
+                <div className="flex gap-4 text-xl items-center">
+                  <div className="p-2 bg-gray-800 rounded-lg">{item.icon}</div>
+                  <p className="font-bold text-left">{item.title}</p>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="px-6 py-8 pb-6 text-lg text-gray-300 leading-relaxed">
+                {item.content}
+              </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="item-2">
-                <AccordionTrigger>
-                    <div className="flex gap-4 text-2xl items-center">
-                        <ScanEye width={40} height={40} />
-                        <p className="font-bold">Our Vision</p>
-                    </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-lg">
-                    Our vision is to lead technology by innovating specific area or technology. We aspire to create a world where a specific outcome or impact, fostering qualities like sustainability, connectivity and enhancing experiences for target audience or global community.
-                </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-3">
-                <AccordionTrigger>
-                    <div className="flex gap-4 text-2xl items-center">
-                        <BringToFront width={40} height={40} />
-                        <p className="font-bold">Our Strategy</p>
-                    </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-lg">
-                    Our strategy is to achieve key strategic goals by leveraging in specific technologies or areas. We will optimize product offerings through strategic initiatives such as partnerships, research and development, or market expansion. By implementing key embracing industry trends, we aim to lead in technology advancements and sustain long-term growth.
-                </AccordionContent>
-            </AccordionItem>
+          ))}
         </Accordion>
-    )
+      </div>
+    </div>
+  )
 }
