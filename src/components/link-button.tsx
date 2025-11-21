@@ -3,7 +3,7 @@ import { Button } from './ui/button'
 import Link from 'next/link'
 import { cn } from '../lib/utils'
 
-function LinkButton({ name, link }: { name: string; link: string }) {
+function LinkButton({ name, link }: any) {
   return (
     <div>
       <Button className={cn('bg-blue-800 text-white hover:bg-blue-500')}>
