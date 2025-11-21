@@ -35,11 +35,11 @@ export default buildConfig({
   }),
   sharp,
   plugins: [
-    vercelBlobStorage({
-      collections: {
-        media: true, // Only this format is supported
-      },
-      token: process.env.BLOB_READ_WRITE_TOKEN,
-    }),
+    // vercelBlobStorage({
+    //   collections: {
+    //     media: true, // Only this format is supported
+    //   },
+    //   token: process.env.BLOB_READ_WRITE_TOKEN,
+    // }),
   ],
 })
