@@ -12,6 +12,7 @@ import { BlogPosts } from './collections/BlogPosts'
 import { Events } from './collections/Events'
 import { Vacancies } from './collections/Vacancies'
 import { Applications } from './collections/Applications'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -34,6 +35,11 @@ export default buildConfig({
   }),
   sharp,
   plugins: [
-    // storage-adapter-placeholder
+    vercelBlobStorage({
+      collections: {
+        media: true, // Only this format is supported
+      },
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+    }),
   ],
 })
