@@ -62,10 +62,10 @@ function Software() {
   return (
     <div className="mb-16">
       <div className="text-center mb-12">
-        <h2 className="text-4xl font-bold text-gray-800 mb-4">
+        <h2 className="text-lg md:text-4xl font-bold text-gray-800 mb-4">
           Software <span className="text-blue-600">Innovations</span>
         </h2>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+        <p className="text-md md:text-lg text-gray-600 max-w-2xl mx-auto">
           Cutting-edge software solutions transforming businesses across industries with modern
           technologies and user-centric design.
         </p>

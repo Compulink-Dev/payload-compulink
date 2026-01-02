@@ -119,7 +119,7 @@ function Hardware() {
           className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16"
         >
           <div>
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
+            <h1 className="text-lg md:text-4xl font-bold text-gray-800 mb-6">
               Enterprise <span className="text-blue-600">Hardware</span> Solutions
             </h1>
             <p className="text-lg text-gray-600 mb-6 leading-relaxed">

@@ -32,7 +32,7 @@ function About() {
             </div>
 
             {/* Experience Badge */}
-            <div className="absolute -bottom-6 -right-6 bg-blue-600 text-white p-6 rounded-2xl shadow-2xl">
+            <div className="hidden md:flex absolute  -bottom-6 -right-6 bg-blue-600 text-white p-6 rounded-2xl shadow-2xl">
               <div className="text-center">
                 <div className="text-3xl font-bold">30+</div>
                 <div className="text-sm font-medium">Years Experience</div>
@@ -45,10 +45,10 @@ function About() {
             <h1 className="text-blue-600 uppercase font-semibold tracking-wider text-lg mb-4">
               Our Story
             </h1>
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-6 leading-tight">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 leading-tight">
               Three Decades of IT Excellence & Innovation
             </h2>
-            <p className="text-gray-600 text-lg leading-relaxed mb-8">
+            <p className="text-gray-600 text-md leading-relaxed mb-8">
               For over 30 years, Compulink Systems has been at the forefront of the IT ecosystem,
               delivering high-standard products and services to various institutions. Our expertise
               spans networking services, cyber security, software solutions, and hardware supply,

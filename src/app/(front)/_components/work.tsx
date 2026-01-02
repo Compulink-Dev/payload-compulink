@@ -2,6 +2,7 @@ import React from 'react'
 import SmallCard from './smallCard'
 import LinkButton from '@/components/link-button'
 import { Download, LockIcon, Network, Shield, Cloud, Code } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 function Work() {
   const features = [
@@ -44,19 +45,22 @@ function Work() {
               <h1 className="text-blue-400 uppercase font-semibold tracking-wider text-lg mb-4">
                 Why Choose Us
               </h1>
-              <h2 className="text-white text-4xl lg:text-5xl font-bold leading-tight mb-6">
+              <h2 className="text-white text-lg md:text-4xl font-bold leading-tight mb-6">
                 Technical Features From <span className="text-blue-400">COMPU</span>
                 <span className="text-red-500">LINK</span>
               </h2>
-              <p className="text-gray-300 text-lg leading-relaxed mb-8 max-w-lg">
+              <p className="text-gray-300 text-md leading-relaxed mb-8 max-w-lg">
                 A world-class Information System Integration House, offering solid solutions backed
                 by service excellence that exceeds customer expectations.
               </p>
               <div className="flex gap-4">
                 <LinkButton link="/about" name="Read More" />
-                <button className="px-6 py-3 border-2 border-white text-white hover:bg-white hover:text-blue-900 transition-all duration-300 rounded-lg font-medium">
+                <Button
+                  variant={'outline'}
+                  className="border-2 border-white text-black hover:bg-white hover:text-blue-900 transition-all duration-300 rounded-lg font-medium"
+                >
                   Contact Us
-                </button>
+                </Button>
               </div>
             </div>
 

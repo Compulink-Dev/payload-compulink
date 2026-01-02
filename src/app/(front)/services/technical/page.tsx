@@ -60,7 +60,7 @@ function Technical() {
           className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16"
         >
           <div>
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
+            <h1 className="text-lg md:text-4xl font-bold text-gray-800 mb-6">
               Technical <span className="text-blue-600">Support</span> Services
             </h1>
             <p className="text-lg text-gray-600 mb-6 leading-relaxed">
@@ -85,7 +85,7 @@ function Technical() {
                   variant="outline"
                   className="border-blue-600 text-blue-600 hover:bg-blue-50"
                 >
-                  Emergency Support: +263 4 251 575
+                  Emergency Support: +263 242 494 407
                 </Button>
               </Link>
             </div>

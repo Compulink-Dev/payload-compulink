@@ -21,10 +21,10 @@ function Gallery() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h1 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
+          <h1 className="text-lg md:text-4xl font-bold text-gray-800 mb-6">
             Compulink <span className="text-blue-600">Gallery</span>
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-md md:text-lg text-gray-600 max-w-2xl mx-auto">
             Discover our journey through photos and videos showcasing our projects, events, and
             technological innovations over the past 30 years.
           </p>
@@ -33,8 +33,8 @@ function Gallery() {
         {/* Video Section */}
         <div className="mb-16">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">Event Videos</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-lg md:text-3xl font-bold text-gray-800 mb-4">Event Videos</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto text-md md:text-lg">
               Watch highlights from our major events and exhibitions
             </p>
           </div>
@@ -44,8 +44,8 @@ function Gallery() {
         {/* Photo Gallery */}
         <div>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">Photo Gallery</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-lg md:text-3xl font-bold text-gray-800 mb-4">Photo Gallery</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto text-md md:text-lg">
               Browse through our collection of project photos and event moments
             </p>
           </div>

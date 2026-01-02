@@ -449,7 +449,7 @@ function Ticket() {
                   </div>
                   <div>
                     <p className="text-sm font-medium">Phone</p>
-                    <p className="text-sm text-gray-600">+263 4 251 575</p>
+                    <p className="text-sm text-gray-600">+263 242 494 407</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">

@@ -310,10 +310,10 @@ function Contact() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1 text-gray-800">Phone</h3>
-                    <p className="text-sm text-gray-600 mb-1">+263 4 251 575</p>
-                    <p className="text-sm text-gray-600">+263 4 251 576</p>
+                    <p className="text-sm text-gray-600 mb-1">+263 242 494 407</p>
+                    <p className="text-sm text-gray-600">+263 719 494 407</p>
                     <Badge variant="outline" className="mt-1 bg-green-50 text-green-700">
-                      Emergency: +263 78 800 9000
+                      Bulawayo: +263 292 277 794
                     </Badge>
                   </div>
                 </div>
@@ -325,9 +325,9 @@ function Contact() {
                   <div>
                     <h3 className="font-semibold mb-1 text-gray-800">Address</h3>
                     <p className="text-sm text-gray-600 leading-relaxed">
-                      Compulink House, 13 Stirling Road
+                      313 Samora Machel East
                       <br />
-                      Workington, Harare, Zimbabwe
+                      Eastlea, Harare, Zimbabwe
                     </p>
                   </div>
                 </div>
@@ -350,7 +350,7 @@ function Contact() {
                   </div>
                   <div className="flex justify-between items-center py-2 border-b">
                     <span className="font-medium text-gray-800">Saturday</span>
-                    <span className="text-gray-600">9:00 AM - 1:00 PM</span>
+                    <span className="text-gray-600">Closed</span>
                   </div>
                   <div className="flex justify-between items-center py-2">
                     <span className="font-medium text-gray-800">Sunday</span>
@@ -415,11 +415,11 @@ function Contact() {
                   <MapPin className="h-8 w-8 text-blue-600 mx-auto mb-2" />
                   <h4 className="font-semibold text-gray-800">Main Office</h4>
                   <p className="text-sm text-gray-600 mt-1">
-                    Compulink House
+                    Compulink
                     <br />
-                    13 Stirling Road, Workington
+                    313 Samora Machel
                     <br />
-                    Harare, Zimbabwe
+                    Eastlea, Harare, Zimbabwe
                   </p>
                 </div>
                 <div className="text-center p-4 bg-gray-50 rounded-lg">
@@ -427,8 +427,6 @@ function Contact() {
                   <h4 className="font-semibold text-gray-800">Visiting Hours</h4>
                   <p className="text-sm text-gray-600 mt-1">
                     Mon - Fri: 8AM - 5PM
-                    <br />
-                    Saturday: 9AM - 1PM
                     <br />
                     By Appointment
                   </p>

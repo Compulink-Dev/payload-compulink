@@ -99,13 +99,13 @@ function Hero({
 
               {/* Subtitle */}
               {subtitle && (
-                <p className="text-lg md:text-xl text-blue-300 font-semibold uppercase tracking-wide">
+                <p className="text-md md:text-lg text-blue-300 font-semibold uppercase tracking-wide">
                   {subtitle}
                 </p>
               )}
 
               {/* Main Title */}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight">
+              <h1 className="text-lg md:text-2xl lg:text-6xl  font-bold leading-tight">
                 {title.split(' ').map((word, index, array) => (
                   <span
                     key={index}
@@ -124,7 +124,7 @@ function Hero({
               {/* Description */}
               {description && (
                 <p
-                  className={`text-lg md:text-xl text-gray-100 leading-relaxed ${textAlign === 'center' ? 'max-w-3xl mx-auto' : 'max-w-2xl'}`}
+                  className={`text-md md:text-lg text-gray-100 leading-relaxed ${textAlign === 'center' ? 'max-w-3xl mx-auto' : 'max-w-2xl'}`}
                 >
                   {description}
                 </p>
@@ -206,7 +206,7 @@ function Hero({
             {/* Image (Optional) */}
             {image && (
               <div className="hidden lg:flex lg:col-span-5 items-center justify-center">
-                <div className="relative w-full h-96 xl:h-[500px]">
+                <div className="relative w-full h-52 md:h-96 xl:h-[500px]">
                   <Image
                     src={image}
                     alt="Hero image"

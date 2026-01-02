@@ -17,8 +17,8 @@ async function EventCard() {
               <Badge className="mb-4 bg-blue-100 text-blue-700 border-blue-200 font-semibold">
                 Featured Event
               </Badge>
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Upcoming Events</h1>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              <h1 className="text-lg md:text-5xl font-bold text-gray-900 mb-4">Upcoming Events</h1>
+              <p className="text-md md:text-xl text-gray-600 max-w-2xl mx-auto">
                 {` Don't miss out on our latest gatherings and experiences`}
               </p>
             </div>
@@ -37,7 +37,7 @@ async function EventCard() {
                       priority
                     />
                     <div className="absolute bottom-8 left-8 right-8 bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
-                      <h2 className="text-2xl md:text-3xl font-bold text-gray-900 leading-tight">
+                      <h2 className="text-lg md:text-3xl font-bold text-gray-900 leading-tight">
                         {event.title}
                       </h2>
                       <div className="flex items-center gap-2 mt-3">
@@ -54,24 +54,28 @@ async function EventCard() {
                 <div className="p-8 lg:p-12">
                   <div className="space-y-6">
                     <div>
-                      <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
+                      <h1 className="text-lg md:text-4xl font-bold text-gray-900 leading-tight">
                         {event.title}
                       </h1>
-                      <p className="text-gray-600 text-lg leading-relaxed mt-4">
+                      <p className="text-gray-600  text-md md:text-lg leading-relaxed mt-4">
                         {event.description}
                       </p>
                     </div>
 
                     <div className="bg-gray-50 rounded-2xl p-6">
-                      <h3 className="font-bold text-xl text-gray-900 mb-4">Event Details</h3>
+                      <h3 className="font-bold text-md md:text-xl text-gray-900 mb-4">
+                        Event Details
+                      </h3>
 
                       <div className="space-y-4">
                         <div className="flex items-center gap-4">
                           <div className="flex items-center gap-3 flex-1">
                             <MapPin className="w-5 h-5 text-blue-500" />
                             <div>
-                              <p className="font-semibold text-gray-900">Location</p>
-                              <p className="text-gray-600">{event.venue}</p>
+                              <p className="font-semibold text-gray-900 text-xs md:text-md">
+                                Location
+                              </p>
+                              <p className="text-gray-600 text-xs md:text-md">{event.venue}</p>
                             </div>
                           </div>
                         </div>
@@ -80,8 +84,8 @@ async function EventCard() {
                           <div className="flex items-center gap-3 flex-1">
                             <Calendar className="w-5 h-5 text-blue-500" />
                             <div>
-                              <p className="font-semibold text-gray-900">Date</p>
-                              <p className="text-gray-600">{event.date}</p>
+                              <p className="font-semibold text-gray-900 text-xs md:text-md">Date</p>
+                              <p className="text-gray-600 text-xs md:text-md">{event.date}</p>
                             </div>
                           </div>
                         </div>
@@ -105,7 +109,7 @@ async function EventCard() {
                       <LinkButton
                         name="View Full Details"
                         link="/"
-                        className="flex-1 justify-center bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3.5 rounded-xl transition-all duration-200 group/btn"
+                        className="flex-1 w-full justify-center bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3.5 rounded-xl transition-all duration-200 group/btn"
                       >
                         View Full Details
                         <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />

@@ -1,4 +1,3 @@
-// app/vacancy/page.tsx
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -23,23 +22,69 @@ interface Vacancy {
   category?: string
   location?: string
   salary?: string
+  createdAt: string
 }
 
 export default function VacancyPage() {
   const [vacancies, setVacancies] = useState<Vacancy[]>([])
   const [selectedVacancy, setSelectedVacancy] = useState<Vacancy | null>(null)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All')
 
   useEffect(() => {
     const fetchVacancies = async () => {
       try {
+        setLoading(true)
+        setError(null)
+        console.log('🔄 Fetching vacancies from API...')
+
         const response = await fetch('/api/vacancies')
+        console.log('📊 API Response status:', response.status)
+        console.log('📊 API Response headers:', response.headers)
+
+        if (!response.ok) {
+          const errorText = await response.text()
+          console.error('❌ API Error response:', errorText)
+          throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`)
+        }
+
         const data = await response.json()
-        setVacancies(Array.isArray(data) ? data : [])
+        console.log('✅ API Response data:', data)
+        console.log('✅ Data is array?', Array.isArray(data))
+        console.log('✅ Number of items:', data.length)
+
+        if (!Array.isArray(data)) {
+          console.error('❌ Data is not an array:', typeof data)
+          throw new Error('Invalid data format received')
+        }
+
+        // Ensure each item has required properties
+        const formattedData = data.map((vacancy: any, index: number) => {
+          console.log(`📝 Vacancy ${index}:`, vacancy)
+          return {
+            _id: vacancy._id || `temp-${index}`,
+            position: vacancy.position || 'Unknown Position',
+            status: vacancy.status || 'open',
+            duration: vacancy.duration || 'Full-time',
+            imageUrl: vacancy.imageUrl || '/images/default-vacancy.jpg',
+            description: vacancy.description || '',
+            qualifications: Array.isArray(vacancy.qualifications) ? vacancy.qualifications : [],
+            skills: Array.isArray(vacancy.skills) ? vacancy.skills : [],
+            experience: vacancy.experience || '',
+            category: vacancy.category || 'Uncategorized',
+            location: vacancy.location || 'Remote',
+            salary: vacancy.salary || 'Competitive',
+            createdAt: vacancy.createdAt || new Date().toISOString(),
+          }
+        })
+
+        console.log('✅ Formatted data:', formattedData)
+        setVacancies(formattedData)
       } catch (error) {
-        console.error('Error fetching vacancies:', error)
+        console.error('❌ Error fetching vacancies:', error)
+        setError(`Failed to load vacancies: ${error.message}`)
         setVacancies([])
       } finally {
         setLoading(false)
@@ -49,15 +94,59 @@ export default function VacancyPage() {
     fetchVacancies()
   }, [])
 
-  const categories = ['All', ...new Set(vacancies.map((v) => v.category).filter(Boolean))]
+  // Extract unique categories from vacancies
+  const categories = [
+    'All',
+    ...new Set(
+      vacancies
+        .map((v) => v.category)
+        .filter((category): category is string => !!category && category !== 'Uncategorized'),
+    ),
+  ]
 
   const filteredVacancies = vacancies.filter((vacancy) => {
     const matchesSearch =
       vacancy.position.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      vacancy.description?.toLowerCase().includes(searchTerm.toLowerCase())
+      vacancy.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      vacancy.skills?.some((skill) => skill.toLowerCase().includes(searchTerm.toLowerCase()))
+
     const matchesCategory = selectedCategory === 'All' || vacancy.category === selectedCategory
+
     return matchesSearch && matchesCategory
   })
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading career opportunities...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div>
+        <Hero
+          backImage="support.webp"
+          image=""
+          title="Career Opportunities"
+          subtitle="Join Our Team of Technology Innovators"
+        />
+        <div className="container mx-auto px-4 py-16 text-center">
+          <div className="bg-red-50 border border-red-200 rounded-lg p-8">
+            <h3 className="text-xl font-semibold text-red-800 mb-2">Error Loading Vacancies</h3>
+            <p className="text-red-600 mb-4">{error}</p>
+            <Button onClick={() => window.location.reload()} variant="outline">
+              Try Again
+            </Button>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div>
@@ -75,17 +164,19 @@ export default function VacancyPage() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-12"
         >
-          <h1 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
+          <h1 className="text-lg md:text-4xl font-bold text-gray-800 mb-6">
             Join <span className="text-blue-600">Our Team</span>
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
-            {`Explore exciting career opportunities at Compulink Systems and be part of a team that's shaping the future of technology in Zimbabwe.`}
+            {`Explore exciting career opportunities and be part of a team that's shaping the future of technology.`}
           </p>
 
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-2xl mx-auto">
             <div className="text-center">
-              <div className="text-3xl font-bold text-blue-600 mb-2">{vacancies.length}</div>
+              <div className="text-3xl font-bold text-blue-600 mb-2">
+                {vacancies.filter((v) => v.status === 'open').length}
+              </div>
               <div className="text-gray-600">Open Positions</div>
             </div>
             <div className="text-center">
@@ -93,7 +184,7 @@ export default function VacancyPage() {
               <div className="text-gray-600">Team Members</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-blue-600 mb-2">5</div>
+              <div className="text-3xl font-bold text-blue-600 mb-2">{categories.length - 1}</div>
               <div className="text-gray-600">Departments</div>
             </div>
           </div>
@@ -112,7 +203,7 @@ export default function VacancyPage() {
               <div className="relative">
                 <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                 <Input
-                  placeholder="Search positions..."
+                  placeholder="Search positions, skills..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10"
@@ -122,35 +213,41 @@ export default function VacancyPage() {
               {/* Category Filter */}
               <div className="flex flex-wrap gap-2 items-center">
                 <Filter className="h-4 w-4 text-gray-400 mr-2" />
-                {categories.map((category) => (
+                {categories.slice(0, 5).map((category) => (
                   <Button
                     key={category}
                     variant={selectedCategory === category ? 'default' : 'outline'}
-                    onClick={() => setSelectedCategory(`${category}`)}
+                    onClick={() => setSelectedCategory(category)}
                     size="sm"
                   >
                     {category}
                   </Button>
                 ))}
+                {categories.length > 5 && (
+                  <span className="text-sm text-gray-500 ml-2">+{categories.length - 5} more</span>
+                )}
               </div>
 
               {/* Results Count */}
               <div className="text-sm text-gray-600 flex items-center justify-end">
                 {filteredVacancies.length} position(s) found
+                {searchTerm && (
+                  <Button
+                    onClick={() => setSearchTerm('')}
+                    variant="ghost"
+                    size="sm"
+                    className="ml-2"
+                  >
+                    Clear
+                  </Button>
+                )}
               </div>
             </div>
           </div>
         </motion.div>
 
         {/* Vacancies Grid */}
-        {loading ? (
-          <div className="flex justify-center items-center h-64">
-            <div className="text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-              <p className="text-gray-600">Loading career opportunities...</p>
-            </div>
-          </div>
-        ) : filteredVacancies.length === 0 ? (
+        {filteredVacancies.length === 0 ? (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -197,22 +294,24 @@ export default function VacancyPage() {
         )}
 
         {/* Call to Action */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="text-center mt-16"
-        >
-          <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-12 text-white">
-            <h2 className="text-3xl font-bold mb-4">{`Can't Find Your Perfect Role?`}</h2>
-            <p className="text-blue-100 mb-8 max-w-2xl mx-auto text-lg">
-              {`We're always looking for talented individuals. Send us your CV and we'll keep you in mind for future opportunities that match your skills and experience.`}
-            </p>
-            <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
-              Submit General Application
-            </Button>
-          </div>
-        </motion.div>
+        {vacancies.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="text-center mt-16"
+          >
+            <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-12 text-white">
+              <h2 className="text-3xl font-bold mb-4">{`Can't Find Your Perfect Role?`}</h2>
+              <p className="text-blue-100 mb-8 max-w-2xl mx-auto text-lg">
+                {`We're always looking for talented individuals. Send us your CV and we'll keep you in mind for future opportunities that match your skills and experience.`}
+              </p>
+              <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
+                Submit General Application
+              </Button>
+            </div>
+          </motion.div>
+        )}
 
         {selectedVacancy && (
           <VacancyModal vacancy={selectedVacancy} onClose={() => setSelectedVacancy(null)} />

@@ -49,13 +49,13 @@ export function AccordionTabs() {
     <div className="container mx-auto py-16">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-4">Our Core Philosophy</h2>
-          <p className="text-xl text-gray-300">
+          <h2 className="text-lg md:text-4xl font-bold mb-4">Our Core Philosophy</h2>
+          <p className="text-md md:text-xl text-gray-300">
             Driving innovation through purpose, vision, and strategic excellence
           </p>
         </div>
 
-        <Accordion type="single" collapsible className="w-full">
+        <Accordion type="single" collapsible className="w-full px-4 md:px-0">
           {items.map((item) => (
             <AccordionItem
               key={item.value}
@@ -68,7 +68,7 @@ export function AccordionTabs() {
                   <p className="font-bold text-left">{item.title}</p>
                 </div>
               </AccordionTrigger>
-              <AccordionContent className="px-6 py-8 pb-6 text-lg text-gray-300 leading-relaxed">
+              <AccordionContent className="px-6 py-8 pb-6 text-md md:text-lg text-gray-300 leading-relaxed">
                 {item.content}
               </AccordionContent>
             </AccordionItem>

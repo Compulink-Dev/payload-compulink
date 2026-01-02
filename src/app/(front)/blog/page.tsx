@@ -142,10 +142,10 @@ export default function BlogPage() {
           className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-12"
         >
           <div>
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-4">
+            <h1 className="text-lg md:text-4xl font-bold text-gray-800 mb-4">
               Latest <span className="text-blue-600">Insights</span>
             </h1>
-            <p className="text-lg text-gray-600 max-w-2xl">
+            <p className="text-md md:text-lg text-gray-600 max-w-2xl">
               Stay updated with the latest technology trends, company news, and industry insights
               from Compulink Systems.
             </p>
@@ -188,10 +188,14 @@ export default function BlogPage() {
                         <span>{featuredPost.readTime}</span>
                       </div>
                     </div>
-                    <h2 className="text-3xl font-bold text-gray-800 mb-4">{featuredPost.title}</h2>
-                    <p className="text-gray-600 leading-relaxed mb-6">{featuredPost.content}</p>
+                    <h2 className="text-lg md:text-3xl font-bold text-gray-800 mb-4">
+                      {featuredPost.title}
+                    </h2>
+                    <p className="text-gray-600 leading-relaxed mb-6 text-sm md:text-lg">
+                      {featuredPost.content}
+                    </p>
                   </div>
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-col md:flex-row gap-4 md:gap-0 items-center justify-between">
                     <div className="flex items-center gap-6 text-gray-500">
                       <button
                         onClick={() => handleLike(featuredPost.id)}
@@ -227,7 +231,7 @@ export default function BlogPage() {
           transition={{ delay: 0.4 }}
         >
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-bold text-gray-800">Latest Articles</h2>
+            <h2 className="text-lg md:text-3xl font-bold text-gray-800">Latest Articles</h2>
           </div>
 
           {latestPosts.length === 0 ? (

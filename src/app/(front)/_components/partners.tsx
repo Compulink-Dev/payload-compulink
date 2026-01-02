@@ -19,7 +19,7 @@ function Parnters() {
           //   link={
           //     "https://companieslogo.com/img/orig/OMU.JO_BIG-5d5b6185.png?t=1657183124"
           //   }
-          name={'Networking Infrastructure'}
+          name={'Networking'}
           link={'/services/network'}
         />
         <CardWithForm

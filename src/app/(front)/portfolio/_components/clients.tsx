@@ -15,10 +15,10 @@ function Clients() {
     <div className="bg-white py-16">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-800 mb-4">
+          <h2 className="text-2xl md:text-4xl font-bold text-gray-800 mb-4">
             Trusted by <span className="text-blue-600">Industry Leaders</span>
           </h2>
-          <p className="text-lg text-gray-600">
+          <p className="text-md md:text-lg text-gray-600">
             {`We're proud to partner with leading organizations across various sectors`}
           </p>
         </div>

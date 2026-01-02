@@ -35,7 +35,7 @@ function Navbar() {
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
               <Phone size={14} />
-              <span>+263 4 251 575</span>
+              <span>+263 242 494 407</span>
             </div>
             <div className="flex items-center gap-2">
               <Mail size={14} />
@@ -82,11 +82,11 @@ function Navbar() {
         className={`w-full fixed top-0 left-0 z-50 transition-all duration-300 ${
           scrolled
             ? 'bg-white/95 backdrop-blur-md shadow-lg top-0'
-            : 'bg-white md:bg-transparent top-8'
+            : 'bg-white md:bg-transparent  top-0 md:top-8'
         }`}
       >
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
-          <div className="flex items-center justify-between py-4">
+          <div className="flex items-center justify-between py-2 md:py-4">
             {/* Logo */}
             <Link href="/" className="">
               <Image
@@ -94,7 +94,7 @@ function Navbar() {
                 alt="Compulink"
                 height={60}
                 width={180}
-                className="h-12 md:h-14 w-auto"
+                className="h-8 md:h-14 w-auto"
                 priority
               />
             </Link>

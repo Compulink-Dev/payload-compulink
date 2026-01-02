@@ -34,7 +34,7 @@ function Services() {
             </div>
 
             {/* Experience Badge */}
-            <div className="absolute -bottom-6 -left-6 bg-blue-600 text-white p-6 rounded-2xl shadow-2xl">
+            <div className="absolute hidden md:flex -bottom-6 -left-6 bg-blue-600 text-white p-6 rounded-2xl shadow-2xl">
               <div className="text-center">
                 <div className="text-3xl font-bold">30+</div>
                 <div className="text-sm font-medium">Years in IT</div>
@@ -47,10 +47,10 @@ function Services() {
             <h1 className="text-blue-600 uppercase font-semibold tracking-wider text-lg mb-4">
               Welcome to Compulink Systems
             </h1>
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-6 leading-tight">
+            <h2 className="text-lg md:text-4xl font-bold text-gray-800 mb-6 leading-tight">
               Three Decades of Digital Excellence & Innovation
             </h2>
-            <p className="text-gray-600 text-lg leading-relaxed mb-8">
+            <p className="text-gray-600 text-md md:text-lg leading-relaxed mb-8">
               For over 30 years, Compulink Systems has been delivering cutting-edge IT solutions to
               institutions across various sectors. Our comprehensive service portfolio spans
               networking, cybersecurity, software development, and hardware solutions, making us
@@ -62,7 +62,7 @@ function Services() {
               {features.map((feature, index) => (
                 <div key={index} className="flex items-center gap-4">
                   <CheckCircle className="text-blue-500 flex-shrink-0" size={24} />
-                  <span className="text-gray-700 font-medium text-lg">{feature}</span>
+                  <span className="text-gray-700 font-medium text-md md:text-lg">{feature}</span>
                 </div>
               ))}
             </div>

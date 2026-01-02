@@ -8,7 +8,7 @@ export function ServiceCard({ icon, name, description, link }: any) {
       <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-blue-700 transition-colors">
         {name}
       </h3>
-      <p className="text-gray-600 leading-relaxed flex-grow mb-4">{description}</p>
+      <p className="text-gray-600 leading-relaxed text-md flex-grow mb-4">{description}</p>
       <div className="mt-auto">
         <LinkButton link={link} name={'Explore'} />
       </div>
@@ -62,10 +62,10 @@ function Service() {
           <h1 className="text-blue-600 uppercase font-semibold tracking-wider text-lg mb-4">
             Our Services
           </h1>
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
+          <h2 className="text-lg md:text-4xl font-bold text-gray-800 mb-6">
             Bringing Technology from the Horizon
           </h2>
-          <p className="text-gray-600 text-lg leading-relaxed">
+          <p className="text-gray-600 text-md leading-relaxed">
             Delivering unmatched service is what we live for. We create a culture of care and
             service where our customer comes first, ensuring excellence in every solution.
           </p>

@@ -158,10 +158,10 @@ function Services() {
           transition={{ duration: 0.6 }}
           className="text-center max-w-4xl mx-auto mb-16"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+          <h1 className="text-lg md:text-4xl font-bold text-gray-800 mb-6">
             Comprehensive <span className="text-blue-600">IT Solutions</span>
           </h1>
-          <p className="text-lg text-gray-600 mb-8">
+          <p className="text-sm md:text-lg text-gray-600 mb-8">
             Offering a variety of services, Managed Services are provided by Compulink Systems
             through a Tier 3 Data Centre offering cloud services. The Data Centre hosts services on
             a secure Private Cloud Platform leveraging on leading ISPs to ensure availability at all
@@ -188,8 +188,8 @@ function Services() {
         {/* Main Services Navigation */}
         <div className="mb-16">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">Our Core Services</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-lg md:text-3xl font-bold text-gray-800 mb-4">Our Core Services</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto text-md md:text-lg">
               Explore our comprehensive range of IT services designed to meet your business needs
             </p>
           </div>
@@ -213,7 +213,7 @@ function Services() {
                 >
                   {service.icon}
                 </div>
-                <span className="font-semibold">{service.title}</span>
+                <span className="font-semibold text-md md-text-lg">{service.title}</span>
               </button>
             ))}
           </div>
@@ -229,9 +229,11 @@ function Services() {
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <div className="p-3 bg-blue-100 rounded-xl">{selectedService.icon}</div>
-                <h3 className="text-3xl font-bold text-gray-800">{selectedService.title}</h3>
+                <h3 className="text-lg md:text-3xl font-bold text-gray-800">
+                  {selectedService.title}
+                </h3>
               </div>
-              <p className="text-gray-700 text-lg mb-6 leading-relaxed">
+              <p className="text-gray-700 text-md md-text-lg mb-6 leading-relaxed">
                 {selectedService.fullDescription}
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-8">
@@ -275,8 +277,8 @@ function Services() {
         {/* Quick Access Services Grid */}
         <div className="mb-16">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">All Services</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-lg md:text-3xl font-bold text-gray-800 mb-4">All Services</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto text-md md-text-lg">
               Quick access to all our specialized IT services
             </p>
           </div>
@@ -313,8 +315,10 @@ function Services() {
         {/* Additional Services */}
         <div className="mb-16">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">Specialized Services</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-lg md:text-3xl font-bold text-gray-800 mb-4">
+              Specialized Services
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto text-md md:text-lg">
               Additional services to complement your technology stack
             </p>
           </div>
@@ -352,19 +356,19 @@ function Services() {
         <div className="bg-blue-600 text-white rounded-2xl p-8 mb-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-3xl md:text-4xl font-bold mb-2">30+</div>
+              <div className="text-lg md:text-4xl font-bold mb-2">30+</div>
               <div className="text-blue-100">Years Experience</div>
             </div>
             <div>
-              <div className="text-3xl md:text-4xl font-bold mb-2">500+</div>
+              <div className="text-lg md:text-4xl font-bold mb-2">500+</div>
               <div className="text-blue-100">Projects Completed</div>
             </div>
             <div>
-              <div className="text-3xl md:text-4xl font-bold mb-2">99.9%</div>
+              <div className="text-lg md:text-4xl font-bold mb-2">99.9%</div>
               <div className="text-blue-100">Uptime Guarantee</div>
             </div>
             <div>
-              <div className="text-3xl md:text-4xl font-bold mb-2">24/7</div>
+              <div className="text-lg md:text-4xl font-bold mb-2">24/7</div>
               <div className="text-blue-100">Support Available</div>
             </div>
           </div>
@@ -372,7 +376,7 @@ function Services() {
 
         {/* CTA Section */}
         <div className="text-center bg-gray-50 rounded-2xl p-12 mb-16">
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">
+          <h2 className=" font-bold text-gray-800 mb-4 text-md md:text-lg">
             Ready to Transform Your Business?
           </h2>
           <p className="text-gray-600 mb-8 max-w-2xl mx-auto">

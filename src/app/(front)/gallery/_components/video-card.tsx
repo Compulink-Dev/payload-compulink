@@ -30,10 +30,10 @@ function VideoCard({ title, desc, video, category }: any) {
               <Tag size={14} />
               <span>{category}</span>
             </div>
-            <CardTitle className="text-2xl font-bold text-gray-800">{title}</CardTitle>
+            <CardTitle className="text-lg md:text-2xl font-bold text-gray-800">{title}</CardTitle>
           </CardHeader>
           <CardContent className="p-0">
-            <p className="text-gray-600 leading-relaxed mb-4">{desc}</p>
+            <p className="text-gray-600 leading-relaxed mb-4 text-md md:text-lg">{desc}</p>
             <div className="flex items-center gap-4 text-sm text-gray-500">
               <div className="flex items-center gap-1">
                 <Calendar size={14} />

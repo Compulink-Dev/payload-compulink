@@ -56,30 +56,30 @@ const galleryImages = [
     category: 'Hardware',
     description: 'Advanced communication infrastructure solutions',
   },
-  {
-    id: 7,
-    src: '/images/cloud-services.jpg',
-    alt: 'Cloud Services',
-    title: 'Cloud Infrastructure',
-    category: 'Services',
-    description: 'Scalable cloud solutions for modern businesses',
-  },
-  {
-    id: 8,
-    src: '/images/networking-services.jpg',
-    alt: 'Networking',
-    title: 'Network Solutions',
-    category: 'Hardware',
-    description: 'Enterprise networking and connectivity solutions',
-  },
-  {
-    id: 9,
-    src: '/images/cybersecurity-services.jpg',
-    alt: 'Cyber Security',
-    title: 'Security Solutions',
-    category: 'Services',
-    description: 'Comprehensive cybersecurity protection',
-  },
+  // {
+  //   id: 7,
+  //   src: '/images/cloud-services.jpg',
+  //   alt: 'Cloud Services',
+  //   title: 'Cloud Infrastructure',
+  //   category: 'Services',
+  //   description: 'Scalable cloud solutions for modern businesses',
+  // },
+  // {
+  //   id: 8,
+  //   src: '/images/networking-services.jpg',
+  //   alt: 'Networking',
+  //   title: 'Network Solutions',
+  //   category: 'Hardware',
+  //   description: 'Enterprise networking and connectivity solutions',
+  // },
+  // {
+  //   id: 9,
+  //   src: '/images/cybersecurity-services.jpg',
+  //   alt: 'Cyber Security',
+  //   title: 'Security Solutions',
+  //   category: 'Services',
+  //   description: 'Comprehensive cybersecurity protection',
+  // },
 ]
 
 function GalleryCard() {
@@ -163,7 +163,7 @@ function GalleryCard() {
 
       {/* Image Modal */}
       <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
-        <DialogContent className="max-w-6xl p-0 border-0 bg-transparent">
+        <DialogContent className="max-w-6xl p-0 border-0 bg-transparent mx-1 md:mx-0">
           {selectedImage && (
             <div className="relative">
               <button
@@ -188,8 +188,10 @@ function GalleryCard() {
                       {selectedImage.category}
                     </span>
                   </div>
-                  <h2 className="text-3xl font-bold text-gray-800 mb-4">{selectedImage.title}</h2>
-                  <p className="text-gray-600 text-lg leading-relaxed mb-6">
+                  <h2 className="text-lg md:text-3xl font-bold text-gray-800 mb-4">
+                    {selectedImage.title}
+                  </h2>
+                  <p className="text-gray-600 text-md md:text-lg leading-relaxed mb-6">
                     {selectedImage.description}
                   </p>
                   <div className="flex gap-4">

@@ -45,7 +45,7 @@ function About() {
             <h1 className="text-blue-600 uppercase font-semibold tracking-wider text-lg mb-4">
               Our Story
             </h1>
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-6 leading-tight">
+            <h2 className="text-lg md:text-4xl font-bold text-gray-800 mb-6 leading-tight">
               Three Decades of IT Excellence & Innovation
             </h2>
             <p className="text-gray-600 text-lg leading-relaxed mb-8">

@@ -68,7 +68,7 @@ function Footer() {
             <div className="space-y-3 mb-6">
               <div className="flex items-center gap-3 text-gray-300">
                 <Phone size={16} className="text-blue-400" />
-                <span className="text-sm">+263 4 251 575</span>
+                <span className="text-sm">+263 242 494 407</span>
               </div>
               <div className="flex items-center gap-3 text-gray-300">
                 <Mail size={16} className="text-blue-400" />

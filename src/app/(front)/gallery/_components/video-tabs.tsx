@@ -12,31 +12,31 @@ function VideoTab() {
     {
       id: 'harare',
       video: '/harare.mp4',
-      title: 'Harare Agricultural Show',
-      desc: 'Highlights from our exhibition at the Harare Agricultural Show showcasing our latest technology solutions for the agricultural sector.',
+      title: 'Compulink 31st Annivewsary',
+      desc: 'Compulink 31st Annivewsary.',
       category: 'Events',
     },
-    {
-      id: 'bulawayo',
-      video: '/bulawayo.mp4',
-      title: 'Bulawayo Business Expo',
-      desc: "Compulink's participation in the Bulawayo Business Expo featuring networking solutions and digital transformation services.",
-      category: 'Events',
-    },
-    {
-      id: 'evolve',
-      video: '/evolve.mp4',
-      title: 'Evolve ICT Summit',
-      desc: 'Our showcase at the Evolve ICT Summit demonstrating cutting-edge software development and cybersecurity solutions.',
-      category: 'Conferences',
-    },
-    {
-      id: 'zitf',
-      video: 'https://nuop3dj38j.ufs.sh/f/AQUC7xhOxFC857sXzoOmH93y8UYIRutLVKnElqPwrpMhadTk',
-      title: 'ZITF Compulink Mobile Finale',
-      desc: 'The grand finale of our mobile technology showcase at the Zimbabwe International Trade Fair featuring innovative mobile solutions.',
-      category: 'Trade Shows',
-    },
+    // {
+    //   id: 'bulawayo',
+    //   video: '/bulawayo.mp4',
+    //   title: 'Bulawayo Business Expo',
+    //   desc: "Compulink's participation in the Bulawayo Business Expo featuring networking solutions and digital transformation services.",
+    //   category: 'Events',
+    // },
+    // {
+    //   id: 'evolve',
+    //   video: '/evolve.mp4',
+    //   title: 'Evolve ICT Summit',
+    //   desc: 'Our showcase at the Evolve ICT Summit demonstrating cutting-edge software development and cybersecurity solutions.',
+    //   category: 'Conferences',
+    // },
+    // {
+    //   id: 'zitf',
+    //   video: 'https://nuop3dj38j.ufs.sh/f/AQUC7xhOxFC857sXzoOmH93y8UYIRutLVKnElqPwrpMhadTk',
+    //   title: 'ZITF Compulink Mobile Finale',
+    //   desc: 'The grand finale of our mobile technology showcase at the Zimbabwe International Trade Fair featuring innovative mobile solutions.',
+    //   category: 'Trade Shows',
+    // },
   ]
 
   const categories = [...new Set(videos.map((v) => v.category))]

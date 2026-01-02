@@ -14,26 +14,26 @@ function Testimonials() {
             <Testimonies />
             <div className="flex flex-col items-start justify-center">
               <div className="mb-6">
-                <h1 className="text-blue-400 uppercase text-lg font-semibold tracking-wider mb-2">
+                <h1 className="text-blue-400 uppercase text-md font-semibold tracking-wider mb-2">
                   Testimonials
                 </h1>
-                <h2 className="text-white text-4xl lg:text-6xl font-bold leading-tight">
+                <h2 className="text-white text-2xl md:text-4xl font-bold leading-tight">
                   What Our Clients Say
                 </h2>
               </div>
 
               <div className="space-y-4 mb-8">
-                <p className="text-gray-300 text-lg leading-relaxed">
+                <p className="text-gray-300 text-md leading-relaxed">
                   Working with Compulink has been a game-changer for our business. Their deep
                   expertise in hardware, software, and networking solutions ensured that we received
                   a comprehensive and tailored approach to our tech needs.
                 </p>
-                <p className="text-gray-300 text-lg leading-relaxed">
+                <p className="text-gray-300 text-md leading-relaxed">
                   From upgrading our infrastructure to optimizing our software stack and
                   streamlining our network, their team demonstrated exceptional knowledge and
                   support at every step.
                 </p>
-                <p className="text-gray-300 text-lg leading-relaxed">
+                <p className="text-gray-300 text-md leading-relaxed">
                   Their commitment to excellence and innovation has significantly enhanced our
                   operational efficiency and performance. I highly recommend{' '}
                   <Link
@@ -47,12 +47,12 @@ function Testimonials() {
               </div>
 
               <div className="flex gap-4">
-                <Button className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 text-lg transition-all duration-300">
+                <Button className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 text-md transition-all duration-300">
                   Read More
                 </Button>
                 <Button
                   variant="outline"
-                  className="border-white text-white hover:bg-white hover:text-blue-900 px-8 py-3 text-lg transition-all duration-300"
+                  className="border-white text-black hover:bg-white hover:text-blue-900 px-8 py-3 text-md transition-all duration-300"
                 >
                   View All
                 </Button>
