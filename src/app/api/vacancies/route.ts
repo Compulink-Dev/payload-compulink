@@ -36,7 +36,7 @@ export async function GET() {
 
     return NextResponse.json(formattedVacancies)
   } catch (error) {
-    console.error('❌ API Error:', error)
+    console.error('❌ API Error :', error)
     return NextResponse.json(
       { error: 'Failed to fetch vacancies', details: error.message },
       { status: 500 },
