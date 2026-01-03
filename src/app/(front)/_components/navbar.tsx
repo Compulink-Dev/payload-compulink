@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
+import { usePathname } from 'next/navigation'
 
 function Navbar() {
   const links = [
@@ -18,6 +19,7 @@ function Navbar() {
 
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,6 +28,18 @@ function Navbar() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  // Check if link is active
+  const isActive = (linkPath: string) => {
+    // For home page, check exact match
+    if (linkPath === '/') {
+      return pathname === '/'
+    }
+
+    // For other pages, check if pathname starts with the link path
+    // This handles nested routes like /services/something
+    return pathname.startsWith(linkPath)
+  }
 
   return (
     <>
@@ -60,7 +74,7 @@ function Navbar() {
               className="hover:text-blue-200 transition-colors"
             >
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
               </svg>
             </a>
             <a
@@ -101,20 +115,30 @@ function Navbar() {
 
             {/* Desktop Navigation */}
             <ul className="hidden lg:flex items-center gap-1 xl:gap-2">
-              {links.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.link}
-                    className={`px-3 xl:px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
-                      scrolled
-                        ? 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'
-                        : 'text-white hover:text-blue-200 hover:bg-white/10'
-                    }`}
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
+              {links.map((link) => {
+                const active = isActive(link.link)
+                return (
+                  <li key={link.name}>
+                    <Link
+                      href={link.link}
+                      className={`px-4 xl:px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
+                        scrolled
+                          ? active
+                            ? 'text-blue-600 '
+                            : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'
+                          : active
+                            ? 'text-white'
+                            : 'text-white hover:text-blue-200 hover:bg-white/10'
+                      }`}
+                    >
+                      {link.name}
+                      {active && (
+                        <span className="block mx-auto w-full p-0 h-0.5 bg-blue-500 rounded-full mt-1"></span>
+                      )}
+                    </Link>
+                  </li>
+                )
+              })}
             </ul>
 
             {/* CTA Button */}
@@ -143,17 +167,24 @@ function Navbar() {
         >
           <div className="container mx-auto px-4 py-4">
             <ul className="space-y-2">
-              {links.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.link}
-                    onClick={() => setOpen(false)}
-                    className="block px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors font-medium"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
+              {links.map((link) => {
+                const active = isActive(link.link)
+                return (
+                  <li key={link.name}>
+                    <Link
+                      href={link.link}
+                      onClick={() => setOpen(false)}
+                      className={`block px-4 py-3 rounded-lg transition-colors font-medium ${
+                        active
+                          ? 'text-blue-600 bg-blue-50 border-l-4 border-blue-600'
+                          : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'
+                      }`}
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                )
+              })}
             </ul>
             <div className="mt-4 pt-4 border-t">
               <Button asChild className="w-full bg-blue-600 hover:bg-blue-700 text-white">

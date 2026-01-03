@@ -4,9 +4,53 @@ import { MapPin, Calendar, Clock, Users, ArrowRight } from 'lucide-react'
 import Image from 'next/image'
 import { Badge } from '@/components/ui/badge'
 import { EventModal } from './eventModal'
+import { Button } from '@/components/ui/button'
 
 async function EventCard() {
   const events = await getEvents()
+
+  // Handle no events case
+  if (!events || events.length === 0) {
+    return (
+      <div className="bg-gradient-to-br from-gray-50 to-white -translate-y-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+          <div className="text-center mb-12">
+            <Badge className="mb-4 bg-blue-100 text-blue-700 border-blue-200 font-semibold">
+              Featured Event
+            </Badge>
+            <h1 className="text-lg md:text-5xl font-bold text-gray-900 mb-4">Upcoming Events</h1>
+            <p className="text-md md:text-xl text-gray-600 max-w-2xl mx-auto">
+              {` Don't miss out on our latest gatherings and experiences`}
+            </p>
+          </div>
+
+          <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-200 p-12">
+            <div className="flex flex-col items-center justify-center text-center py-16">
+              <div className="mx-auto flex items-center justify-center h-20 w-20 rounded-full bg-blue-100 mb-6">
+                <Calendar className="h-10 w-10 text-blue-600" />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-3">No Featured Event Available</h2>
+              <p className="text-gray-600 mb-6 max-w-md">
+                {` We're currently planning our next big event. Stay tuned for announcements and
+                updates on upcoming gatherings!`}
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-xl">
+                  Subscribe for Updates
+                </Button>
+                <Button
+                  variant="outline"
+                  className="border-blue-200 text-blue-600 hover:bg-blue-50"
+                >
+                  View Past Events
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <>

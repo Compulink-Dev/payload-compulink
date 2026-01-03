@@ -25,9 +25,9 @@ export default function Testimonies() {
             delay: 5000,
           }),
         ]}
-        className="w-full max-w-4xl mx-auto"
+        className="w-full max-w-4xl mx-auto "
       >
-        <CarouselContent>
+        <CarouselContent className="">
           {testimonies.map((testimony: any) => (
             <CarouselItem key={testimony.id} className="basis-full">
               <div className="p-4">
@@ -63,8 +63,10 @@ export default function Testimonies() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+        <div className="hidden md:flex">
+          <CarouselPrevious />
+          <CarouselNext />
+        </div>
       </Carousel>
     </div>
   )

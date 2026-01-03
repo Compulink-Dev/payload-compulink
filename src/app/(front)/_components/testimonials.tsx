@@ -12,7 +12,7 @@ function Testimonials() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <Testimonies />
-            <div className="flex flex-col items-start justify-center">
+            <div className="flex flex-col items-start justify-center md:pl-8">
               <div className="mb-6">
                 <h1 className="text-blue-400 uppercase text-md font-semibold tracking-wider mb-2">
                   Testimonials

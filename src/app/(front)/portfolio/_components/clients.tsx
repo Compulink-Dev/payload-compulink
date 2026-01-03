@@ -5,10 +5,11 @@ function Clients() {
   const clients = [
     { name: 'CABS', logo: '/images/cabs.png' },
     { name: 'Old Mutual', logo: '/images/oldMutual.jpeg' },
-    { name: 'University of Zimbabwe', logo: '/images/uz.jpg' },
-    { name: 'Government', logo: '/images/government.jpg' },
-    { name: 'Healthcare', logo: '/images/hospital.jpg' },
-    { name: 'Manufacturing', logo: '/images/manufacturing.jpg' },
+    { name: 'University of Zimbabwe', logo: '/images/uz.png' },
+    { name: 'Government', logo: '/images/govt.png' },
+    { name: 'Healthcare', logo: '/images/pare.png' },
+    { name: 'Potraz', logo: '/images/potraz.png' },
+    { name: 'Econet', logo: '/images/econet.png' },
   ]
 
   return (

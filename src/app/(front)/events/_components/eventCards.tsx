@@ -8,6 +8,26 @@ import { Badge } from '@/components/ui/badge'
 async function EventCards() {
   const events = await getEvents()
 
+  // Handle no events case
+  if (!events || events.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center py-20 px-4 text-center">
+        <div className="bg-gray-50 rounded-2xl p-8 max-w-md w-full">
+          <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 mb-4">
+            <Calendar className="h-6 w-6 text-blue-600" />
+          </div>
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">No Events Available</h3>
+          <p className="text-gray-600 mb-4">
+            There are currently no upcoming events. Check back soon for updates!
+          </p>
+          <Button variant="outline" className="border-blue-200 text-blue-600 hover:bg-blue-50">
+            Notify Me
+          </Button>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <>
       {events.map((event: any) => (

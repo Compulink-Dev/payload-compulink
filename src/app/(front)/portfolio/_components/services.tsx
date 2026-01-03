@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { CheckCircle } from 'lucide-react'
 import React from 'react'
 import LinkButton from '@/components/link-button'
+import { Button } from '@/components/ui/button'
 
 function Services() {
   const features = [
@@ -20,7 +21,7 @@ function Services() {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Image Section */}
-          <div className="relative order-2 lg:order-1">
+          <div className="relative hidden md:flex order-2 lg:order-1">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <Image
                 src={'/images/ab.gif'}
@@ -62,16 +63,19 @@ function Services() {
               {features.map((feature, index) => (
                 <div key={index} className="flex items-center gap-4">
                   <CheckCircle className="text-blue-500 flex-shrink-0" size={24} />
-                  <span className="text-gray-700 font-medium text-md md:text-lg">{feature}</span>
+                  <span className="text-gray-700 font-medium text-sm md:text-lg">{feature}</span>
                 </div>
               ))}
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
               <LinkButton link="/about" name="Our Story" />
-              <button className="px-8 py-4 border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 rounded-lg font-medium text-lg">
+              <Button
+                variant={'outline'}
+                className=" border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 rounded-lg font-medium"
+              >
                 Download Capability Statement
-              </button>
+              </Button>
             </div>
           </div>
         </div>
