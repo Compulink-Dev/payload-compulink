@@ -82,7 +82,7 @@ export default function VacancyPage() {
 
         console.log('✅ Formatted data:', formattedData)
         setVacancies(formattedData)
-      } catch (error) {
+      } catch (error: any) {
         console.error('❌ Error fetching vacancies:', error)
         setError(`Failed to load vacancies: ${error.message}`)
         setVacancies([])

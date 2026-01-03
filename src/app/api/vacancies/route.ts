@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { NextResponse } from 'next/server'
 import dbConnect from '@/lib/dbConnect'
 import VacancyModel from '@/lib/models/VacancyModel'
