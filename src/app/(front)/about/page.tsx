@@ -7,7 +7,7 @@ export default function About() {
     <div>
       <div className="p-4">
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
-          <h1>About Us</h1>
+          <h1>About Us.</h1>
           <p>We are a leading IT company providing top-notch solutions.</p>
         </motion.div>
       </div>
