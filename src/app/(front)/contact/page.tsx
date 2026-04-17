@@ -310,10 +310,10 @@ function Contact() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1 text-gray-800">Phone</h3>
-                    <p className="text-sm text-gray-600 mb-1">+263 242 494 407</p>
+                    <p className="text-sm text-gray-600 mb-1">+263 867 710 5028</p>
                     <p className="text-sm text-gray-600">+263 719 494 407</p>
                     <Badge variant="outline" className="mt-1 bg-green-50 text-green-700">
-                      Bulawayo: +263 292 277 794
+                      Bulawayo: +263 719 494 407
                     </Badge>
                   </div>
                 </div>

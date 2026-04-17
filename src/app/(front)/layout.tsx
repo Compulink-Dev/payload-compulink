@@ -3,6 +3,7 @@ import Navbar from './_components/navbar'
 import Footer from '@/app/(front)/_components/bottom'
 import './globals.css'
 import { Toaster } from '@/components/ui/sonner'
+import ChatbotWidget from '@/components/chatbot-widget'
 
 export const metadata = {
   description: 'Compulink - Building Digital Products & Brands',
@@ -19,6 +20,7 @@ function Layout({ children }: { children: React.ReactNode }) {
         </main>
         <Footer />
         <Toaster />
+        <ChatbotWidget />
       </body>
     </html>
   )
