@@ -94,7 +94,9 @@ function Navbar() {
 
       {/* Main Navbar - Modern Glass Effect */}
       <nav
-        className={`w-full fixed top-0 md:top-10 left-0 z-50 transition-all duration-300 ${
+        className={`w-full fixed left-0 z-50 transition-all duration-300 ${
+          scrolled ? 'top-0' : 'top-0 md:top-10'
+        } ${
           scrolled
             ? 'bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-lg border-b border-white/20'
             : 'bg-white/50 md:bg-transparent md:backdrop-blur-none backdrop-blur-sm'
