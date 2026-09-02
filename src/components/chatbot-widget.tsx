@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { MessageCircle, X, Send, Minimize2, Maximize2, CheckCircle } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
+import gsap from 'gsap'
 
 interface Message {
   id: string
@@ -40,6 +40,18 @@ export default function ChatbotWidget() {
     collectedInfo: {},
   })
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const panelRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (isOpen && panelRef.current) {
+      const tween = gsap.fromTo(
+        panelRef.current,
+        { opacity: 0, scale: 0.95, y: 20 },
+        { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: 'power3.out' }
+      )
+      return () => { gsap.killTweensOf(panelRef.current) }
+    }
+  }, [isOpen])
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -202,12 +214,9 @@ export default function ChatbotWidget() {
   return (
     <>
       {/* Chat Widget */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+      {isOpen && (
+          <div
+            ref={panelRef}
             className="fixed bottom-20 right-4 w-full max-w-sm bg-white rounded-lg shadow-2xl border border-gray-200 flex flex-col z-50"
             style={{ height: isMinimized ? '50px' : '600px' }}
           >
@@ -314,14 +323,17 @@ export default function ChatbotWidget() {
                 )}
               </>
             )}
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
 
       {/* Floating Button */}
-      <motion.button
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
+      <button
+        onMouseEnter={(e) => gsap.to(e.currentTarget, { scale: 1.1, duration: 0.25, ease: 'power2.out' })}
+        onMouseLeave={(e) => gsap.to(e.currentTarget, { scale: 1, duration: 0.25, ease: 'power2.out' })}
+        onMouseDown={(e) => gsap.to(e.currentTarget, { scale: 0.95, duration: 0.15, ease: 'power2.out' })}
+        onMouseUp={(e) => gsap.to(e.currentTarget, { scale: 1.1, duration: 0.15, ease: 'power2.out' })}
+        onTouchStart={(e) => gsap.to(e.currentTarget, { scale: 0.95, duration: 0.15, ease: 'power2.out' })}
+        onTouchEnd={(e) => gsap.to(e.currentTarget, { scale: 1.1, duration: 0.15, ease: 'power2.out' })}
         onClick={() => {
           setIsOpen(!isOpen)
           setIsMinimized(false)
@@ -334,7 +346,7 @@ export default function ChatbotWidget() {
         title="Chat with us"
       >
         {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
-      </motion.button>
+      </button>
     </>
   )
 }

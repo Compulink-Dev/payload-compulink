@@ -1,13 +1,17 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { VacancyCard } from './_components/vacancyCard'
 import { VacancyModal } from './_components/vacancyModal'
 import Hero from '../_components/hero'
-import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Briefcase, Filter, Search } from 'lucide-react'
 import { Input } from '@/components/ui/input'
+import GsapReveal from '@/components/ui/gsap-reveal'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 interface Vacancy {
   _id: string
@@ -32,6 +36,7 @@ export default function VacancyPage() {
   const [error, setError] = useState<string | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All')
+  const vacancyGridRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const fetchVacancies = async () => {
@@ -115,6 +120,34 @@ export default function VacancyPage() {
     return matchesSearch && matchesCategory
   })
 
+  useLayoutEffect(() => {
+    const container = vacancyGridRef.current
+    if (!container) return
+
+    const ctx = gsap.context(() => {
+      const els = container.querySelectorAll('[data-reveal]')
+      if (!els.length) return
+
+      gsap.fromTo(
+        els,
+        { y: 40, autoAlpha: 0 },
+        {
+          y: 0,
+          autoAlpha: 1,
+          duration: 0.9,
+          ease: 'power3.out',
+          stagger: 0.08,
+          scrollTrigger: {
+            trigger: container,
+            start: 'top 85%',
+          },
+        }
+      )
+    })
+
+    return () => ctx.revert()
+  }, [filteredVacancies])
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -159,9 +192,7 @@ export default function VacancyPage() {
 
       <div className="container mx-auto px-4 py-16">
         {/* Header Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+        <GsapReveal
           className="text-center mb-12"
         >
           <h1 className="text-lg md:text-4xl font-bold text-gray-800 mb-6">
@@ -188,13 +219,11 @@ export default function VacancyPage() {
               <div className="text-gray-600">Departments</div>
             </div>
           </div>
-        </motion.div>
+        </GsapReveal>
 
         {/* Search and Filter Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+        <GsapReveal
+          delay={0.2}
           className="mb-12"
         >
           <div className="bg-white rounded-2xl p-6 shadow-lg border">
@@ -244,13 +273,11 @@ export default function VacancyPage() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </GsapReveal>
 
         {/* Vacancies Grid */}
         {filteredVacancies.length === 0 ? (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+          <GsapReveal
             className="text-center py-16 bg-gray-50 rounded-2xl"
           >
             <Briefcase className="h-16 w-16 text-gray-400 mx-auto mb-4" />
@@ -272,33 +299,25 @@ export default function VacancyPage() {
                 Clear Filters
               </Button>
             )}
-          </motion.div>
+          </GsapReveal>
         ) : (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          >
+          <div ref={vacancyGridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredVacancies.map((vacancy, index) => (
-              <motion.div
+              <div
                 key={vacancy._id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 + index * 0.1 }}
+                data-reveal
+                style={{ opacity: 0 }}
               >
                 <VacancyCard vacancy={vacancy} onClick={() => setSelectedVacancy(vacancy)} />
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         )}
 
         {/* Call to Action */}
         {vacancies.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
+          <GsapReveal
+            delay={0.4}
             className="text-center mt-16"
           >
             <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-12 text-white">
@@ -310,7 +329,7 @@ export default function VacancyPage() {
                 Submit General Application
               </Button>
             </div>
-          </motion.div>
+          </GsapReveal>
         )}
 
         {selectedVacancy && (

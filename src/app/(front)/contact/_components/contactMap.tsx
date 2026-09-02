@@ -1,17 +1,30 @@
 'use client'
 import dynamic from 'next/dynamic'
-import React from 'react'
+import React, { useRef } from 'react'
 import { Mail, Home, Phone, MapPin, Clock, Building } from 'lucide-react'
 import { useLoadScript } from '@react-google-maps/api'
+import gsap from 'gsap'
 import Maps from './maps'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { motion } from 'framer-motion'
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 
 const Info = ({ icon, title, info1, info2, badge }: any) => {
+  const ref = useRef<HTMLDivElement | null>(null)
+
+  const handleEnter = () => {
+    gsap.to(ref.current, { scale: 1.02, duration: 0.35, ease: 'power2.out' })
+  }
+
+  const handleLeave = () => {
+    gsap.to(ref.current, { scale: 1, duration: 0.35, ease: 'power2.out' })
+  }
+
   return (
-    <motion.div
-      whileHover={{ scale: 1.02 }}
+    <div
+      ref={ref}
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
       className="flex gap-4 items-start p-4 rounded-lg hover:bg-blue-800/50 transition-all duration-300 group"
     >
       <div className="p-3 bg-blue-700 rounded-lg group-hover:bg-blue-600 transition-colors flex-shrink-0">
@@ -32,7 +45,7 @@ const Info = ({ icon, title, info1, info2, badge }: any) => {
         <p className="text-blue-100 text-sm leading-relaxed mb-1">{info1}</p>
         {info2 && <p className="text-blue-100 text-sm leading-relaxed">{info2}</p>}
       </div>
-    </motion.div>
+    </div>
   )
 }
 
@@ -77,86 +90,81 @@ function ContactMap() {
             </div>
 
             {/* Contact Information */}
-            <div className="space-y-4 flex-1 overflow-y-auto">
-              {/* Harare Office */}
-              <div className="space-y-3">
-                <div className="flex items-center gap-2 px-2">
-                  <Building className="h-4 w-4 text-blue-300" />
-                  <h3 className="font-semibold text-blue-300 text-sm uppercase tracking-wide">
-                    Harare Office
-                  </h3>
-                </div>
-                <Info
-                  icon={<Home className="h-5 w-5 text-white" />}
-                  title="Main Office"
-                  info1="313 Samora Machel Ave, Eastlea"
-                  info2="Harare, Zimbabwe"
-                  badge="Headquarters"
-                />
-                <Info
-                  icon={<Phone className="h-5 w-5 text-white" />}
-                  title="Harare Phone"
-                  info1="+(263) 24 249 4407"
-                  info2="+(263) 4 251 575"
-                />
-                <Info
-                  icon={<Clock className="h-5 w-5 text-white" />}
-                  title="Business Hours"
-                  info1="Mon - Fri: 8:00 AM - 5:00 PM"
-                  info2="Sat: 9:00 AM - 1:00 PM"
-                />
-              </div>
+            <Tabs defaultValue="harare" className="flex-1 flex flex-col min-h-0">
+              <TabsList className="w-full">
+                <TabsTrigger value="harare" className="flex-1">Harare</TabsTrigger>
+                <TabsTrigger value="bulawayo" className="flex-1">Bulawayo</TabsTrigger>
+                <TabsTrigger value="kent" className="flex-1">Kent</TabsTrigger>
+              </TabsList>
 
-              {/* Bulawayo Office */}
-              <div className="space-y-3 pt-4 border-t border-blue-700/50">
-                <div className="flex items-center gap-2 px-2">
-                  <Building className="h-4 w-4 text-blue-300" />
-                  <h3 className="font-semibold text-blue-300 text-sm uppercase tracking-wide">
-                    Bulawayo Office
-                  </h3>
+              <TabsContent value="harare" className="overflow-y-auto">
+                <div className="space-y-3 p-2">
+                  <Info
+                    icon={<Home className="h-5 w-5 text-white" />}
+                    title="Main Office"
+                    info1="313 Samora Machel Ave, Eastlea"
+                    info2="Harare, Zimbabwe"
+                    badge="Headquarters"
+                  />
+                  <Info
+                    icon={<Phone className="h-5 w-5 text-white" />}
+                    title="Harare Phone"
+                    info1="+(263) 24 249 4407"
+                    info2="+(263) 4 251 575"
+                  />
+                  <Info
+                    icon={<Clock className="h-5 w-5 text-white" />}
+                    title="Business Hours"
+                    info1="Mon - Fri: 8:00 AM - 5:00 PM"
+                    info2="Sat: 9:00 AM - 1:00 PM"
+                  />
                 </div>
-                <Info
-                  icon={<Home className="h-5 w-5 text-white" />}
-                  title="Bulawayo Branch"
-                  info1="22 Princess Park Mansions"
-                  info2="Samuel Parirenyatwa Street, Bulawayo"
-                />
-                <Info
-                  icon={<Phone className="h-5 w-5 text-white" />}
-                  title="Bulawayo Phone"
-                  info1="+(263) 29 277 794"
-                  info2="+(263) 29 276 543"
-                />
-                <Info
-                  icon={<Clock className="h-5 w-5 text-white" />}
-                  title="Business Hours"
-                  info1="Mon - Fri: 8:00 AM - 5:00 PM"
-                  info2="Sat: 9:00 AM - 1:00 PM"
-                />
-              </div>
+              </TabsContent>
 
-              {/* Contact Methods */}
-              <div className="space-y-3 pt-4 border-t border-blue-700/50">
-                <div className="flex items-center gap-2 px-2">
-                  <Mail className="h-4 w-4 text-blue-300" />
-                  <h3 className="font-semibold text-blue-300 text-sm uppercase tracking-wide">
-                    Contact Methods
-                  </h3>
+              <TabsContent value="bulawayo" className="overflow-y-auto">
+                <div className="space-y-3 p-2">
+                  <Info
+                    icon={<Home className="h-5 w-5 text-white" />}
+                    title="Bulawayo Branch"
+                    info1="22 Princess Park Mansions"
+                    info2="Samuel Parirenyatwa Street, Bulawayo"
+                  />
+                  <Info
+                    icon={<Phone className="h-5 w-5 text-white" />}
+                    title="Bulawayo Phone"
+                    info1="+(263) 29 277 794"
+                    info2="+(263) 29 276 543"
+                  />
+                  <Info
+                    icon={<Clock className="h-5 w-5 text-white" />}
+                    title="Business Hours"
+                    info1="Mon - Fri: 8:00 AM - 5:00 PM"
+                    info2="Sat: 9:00 AM - 1:00 PM"
+                  />
                 </div>
-                <Info
-                  icon={<Mail className="h-5 w-5 text-white" />}
-                  title="Email Address"
-                  info1="info@compulink.co.zw"
-                  info2="sales@compulink.co.zw"
-                />
-                <Info
-                  icon={<Phone className="h-5 w-5 text-white" />}
-                  title="Emergency Support"
-                  info1="+(263) 78 800 9000"
-                  info2="24/7 Available"
-                />
-              </div>
-            </div>
+              </TabsContent>
+
+              <TabsContent value="kent" className="overflow-y-auto">
+                <div className="space-y-3 p-2">
+                  <Info
+                    icon={<Home className="h-5 w-5 text-white" />}
+                    title="Kent Office"
+                    info1="Shop 3, 1 Kent Road"
+                    info2="Chisipiti, Harare"
+                  />
+                  <Info
+                    icon={<Phone className="h-5 w-5 text-white" />}
+                    title="Kent Phone"
+                    info1="0777 014 076, 0777 746 587"
+                  />
+                  <Info
+                    icon={<Clock className="h-5 w-5 text-white" />}
+                    title="Business Hours"
+                    info1="Mon - Fri: 8:00 AM - 5:00 PM"
+                  />
+                </div>
+              </TabsContent>
+            </Tabs>
 
             {/* Footer */}
             <div className="pt-6 mt-4 border-t border-blue-700/50">
@@ -168,7 +176,7 @@ function ContactMap() {
                   Open Now
                 </Badge>
                 <p className="text-blue-200 text-xs">
-                  Both offices are currently open for business
+                  All offices are currently open for business
                 </p>
               </div>
             </div>

@@ -1,10 +1,9 @@
 'use client'
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useState, useRef, useLayoutEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import Service from '../_components/service'
-import { motion } from 'framer-motion'
 import Hero from '../_components/hero'
 import {
   Cloud,
@@ -21,6 +20,11 @@ import {
   Lock,
 } from 'lucide-react'
 import Link from 'next/link'
+import GsapReveal from '@/components/ui/gsap-reveal'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const mainServices = [
   {
@@ -145,6 +149,69 @@ const additionalServices = [
 
 function Services() {
   const [selectedService, setSelectedService] = useState(mainServices[0])
+  const serviceDetailsRef = useRef<HTMLDivElement>(null)
+  const quickAccessGridRef = useRef<HTMLDivElement>(null)
+  const additionalGridRef = useRef<HTMLDivElement>(null)
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      const qaContainer = quickAccessGridRef.current
+      if (qaContainer) {
+        const qaEls = qaContainer.querySelectorAll('[data-reveal]')
+        if (qaEls.length) {
+          gsap.fromTo(
+            qaEls,
+            { y: 40, autoAlpha: 0 },
+            {
+              y: 0,
+              autoAlpha: 1,
+              duration: 0.9,
+              ease: 'power3.out',
+              stagger: 0.08,
+              scrollTrigger: {
+                trigger: qaContainer,
+                start: 'top 85%',
+              },
+            }
+          )
+        }
+      }
+
+      const addContainer = additionalGridRef.current
+      if (addContainer) {
+        const addEls = addContainer.querySelectorAll('[data-reveal]')
+        if (addEls.length) {
+          gsap.fromTo(
+            addEls,
+            { y: 40, autoAlpha: 0 },
+            {
+              y: 0,
+              autoAlpha: 1,
+              duration: 0.9,
+              ease: 'power3.out',
+              stagger: 0.08,
+              scrollTrigger: {
+                trigger: addContainer,
+                start: 'top 85%',
+              },
+            }
+          )
+        }
+      }
+    })
+
+    return () => ctx.revert()
+  }, [])
+
+  useLayoutEffect(() => {
+    const el = serviceDetailsRef.current
+    if (!el) return
+    gsap.fromTo(
+      el,
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }
+    )
+  }, [selectedService.id])
 
   return (
     <div>
@@ -152,10 +219,7 @@ function Services() {
 
       {/* Hero Section */}
       <div className="container mx-auto px-4 py-16">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+        <GsapReveal
           className="text-center max-w-4xl mx-auto mb-16"
         >
           <h1 className="text-lg md:text-4xl font-bold text-gray-800 mb-6">
@@ -183,7 +247,7 @@ function Services() {
               </Button>
             </Link>
           </div>
-        </motion.div>
+        </GsapReveal>
 
         {/* Main Services Navigation */}
         <div className="mb-16">
@@ -219,11 +283,9 @@ function Services() {
           </div>
 
           {/* Selected Service Details */}
-          <motion.div
+          <div
+            ref={serviceDetailsRef}
             key={selectedService.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
             className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center bg-gradient-to-r from-blue-50 to-gray-50 rounded-2xl p-8"
           >
             <div>
@@ -271,7 +333,7 @@ function Services() {
                 className="rounded-xl shadow-lg"
               />
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {/* Quick Access Services Grid */}
@@ -282,13 +344,12 @@ function Services() {
               Quick access to all our specialized IT services
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div ref={quickAccessGridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {mainServices.map((service, index) => (
-              <motion.div
+              <div
                 key={service.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                data-reveal
+                style={{ opacity: 0 }}
               >
                 <Link href={service.link}>
                   <Card className="h-full hover:shadow-lg transition-all duration-300 hover:border-blue-300 group cursor-pointer border-2">
@@ -307,7 +368,7 @@ function Services() {
                     </CardContent>
                   </Card>
                 </Link>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -322,13 +383,12 @@ function Services() {
               Additional services to complement your technology stack
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div ref={additionalGridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {additionalServices.map((service, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                data-reveal
+                style={{ opacity: 0 }}
               >
                 <Link href={service.link}>
                   <Card className="h-full hover:shadow-lg transition-all duration-300 hover:border-blue-300 group cursor-pointer">
@@ -347,7 +407,7 @@ function Services() {
                     </CardContent>
                   </Card>
                 </Link>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

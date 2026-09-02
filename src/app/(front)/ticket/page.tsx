@@ -14,7 +14,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Badge } from '@/components/ui/badge'
-import { motion } from 'framer-motion'
+import GsapReveal from '@/components/ui/gsap-reveal'
 import { toast } from 'sonner'
 import {
   User,
@@ -142,9 +142,7 @@ function Ticket() {
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Form */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
+          <GsapReveal
             className="lg:col-span-2"
           >
             <Card className="border-2">
@@ -395,13 +393,11 @@ function Ticket() {
                 </form>
               </CardContent>
             </Card>
-          </motion.div>
+          </GsapReveal>
 
           {/* Sidebar */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
+          <GsapReveal
+            delay={0.2}
             className="space-y-6"
           >
             {/* Support Info */}
@@ -491,14 +487,12 @@ function Ticket() {
                 </Button>
               </CardContent>
             </Card>
-          </motion.div>
+          </GsapReveal>
         </div>
 
         {/* Map Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
+        <GsapReveal
+          delay={0.4}
           className="mt-16"
         >
           <Card>
@@ -524,7 +518,7 @@ function Ticket() {
               </div>
             </CardContent>
           </Card>
-        </motion.div>
+        </GsapReveal>
       </div>
     </div>
   )

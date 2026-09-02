@@ -1,11 +1,11 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useLayoutEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { Card } from '@/components/ui/card'
-import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Filter, X } from 'lucide-react'
+import gsap from 'gsap'
 
 const galleryImages = [
   {
@@ -56,35 +56,12 @@ const galleryImages = [
     category: 'Hardware',
     description: 'Advanced communication infrastructure solutions',
   },
-  // {
-  //   id: 7,
-  //   src: '/images/cloud-services.jpg',
-  //   alt: 'Cloud Services',
-  //   title: 'Cloud Infrastructure',
-  //   category: 'Services',
-  //   description: 'Scalable cloud solutions for modern businesses',
-  // },
-  // {
-  //   id: 8,
-  //   src: '/images/networking-services.jpg',
-  //   alt: 'Networking',
-  //   title: 'Network Solutions',
-  //   category: 'Hardware',
-  //   description: 'Enterprise networking and connectivity solutions',
-  // },
-  // {
-  //   id: 9,
-  //   src: '/images/cybersecurity-services.jpg',
-  //   alt: 'Cyber Security',
-  //   title: 'Security Solutions',
-  //   category: 'Services',
-  //   description: 'Comprehensive cybersecurity protection',
-  // },
 ]
 
 function GalleryCard() {
   const [selectedImage, setSelectedImage] = useState<(typeof galleryImages)[0] | null>(null)
   const [selectedCategory, setSelectedCategory] = useState('All')
+  const gridRef = useRef<HTMLDivElement>(null)
 
   const categories = ['All', ...new Set(galleryImages.map((img) => img.category))]
 
@@ -92,6 +69,36 @@ function GalleryCard() {
     selectedCategory === 'All'
       ? galleryImages
       : galleryImages.filter((img) => img.category === selectedCategory)
+
+  useLayoutEffect(() => {
+    if (!gridRef.current) return
+
+    const container = gridRef.current
+    const cards = container.querySelectorAll('[data-card]')
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        container,
+        { autoAlpha: 0 },
+        { autoAlpha: 1, duration: 0.3, ease: 'power2.out' },
+      )
+      if (cards.length > 0) {
+        gsap.fromTo(
+          cards,
+          { opacity: 0, scale: 0.95 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.4,
+            ease: 'power2.out',
+            stagger: 0.06,
+          },
+        )
+      }
+    }, container)
+
+    return () => ctx.revert()
+  }, [selectedCategory, filteredImages])
 
   return (
     <div className="mt-8">
@@ -114,52 +121,42 @@ function GalleryCard() {
       </div>
 
       {/* Masonry Grid */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={selectedCategory}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {filteredImages.map((image, index) => (
-            <motion.div
-              key={image.id}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3, delay: index * 0.1 }}
+      <div
+        key={selectedCategory}
+        ref={gridRef}
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+      >
+        {filteredImages.map((image) => (
+          <div key={image.id} data-card>
+            <Card
+              className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 border-2"
+              onClick={() => setSelectedImage(image)}
             >
-              <Card
-                className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 border-2"
-                onClick={() => setSelectedImage(image)}
-              >
-                <div className="relative aspect-square overflow-hidden">
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                      <h3 className="font-bold text-xl mb-2">{image.title}</h3>
-                      <p className="text-blue-200 font-medium mb-1">{image.category}</p>
-                      <p className="text-gray-200 text-sm">{image.description}</p>
-                    </div>
-                  </div>
-                  <div className="absolute top-4 right-4">
-                    <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">
-                      {image.category}
-                    </span>
+              <div className="relative aspect-square overflow-hidden">
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                    <h3 className="font-bold text-xl mb-2">{image.title}</h3>
+                    <p className="text-blue-200 font-medium mb-1">{image.category}</p>
+                    <p className="text-gray-200 text-sm">{image.description}</p>
                   </div>
                 </div>
-              </Card>
-            </motion.div>
-          ))}
-        </motion.div>
-      </AnimatePresence>
+                <div className="absolute top-4 right-4">
+                  <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                    {image.category}
+                  </span>
+                </div>
+              </div>
+            </Card>
+          </div>
+        ))}
+      </div>
 
       {/* Image Modal */}
       <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>

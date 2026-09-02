@@ -9,14 +9,18 @@ import {
   Calendar,
   Eye,
 } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { BlogModal } from './_components/BlogModal'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import Hero from '../_components/hero'
-import { motion } from 'framer-motion'
+import GsapReveal from '@/components/ui/gsap-reveal'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 interface BlogPost {
   id: string
@@ -37,6 +41,7 @@ export default function BlogPage() {
   const [posts, setPosts] = useState<BlogPost[]>([])
   const [commentText, setCommentText] = useState('')
   const [loading, setLoading] = useState(true)
+  const gridRef = useRef<HTMLDivElement>(null)
 
   // Mock data for demonstration
   useEffect(() => {
@@ -91,6 +96,34 @@ export default function BlogPage() {
     setLoading(false)
   }, [])
 
+  useEffect(() => {
+    if (loading || !gridRef.current) return
+
+    const container = gridRef.current
+    const cards = container.querySelectorAll('[data-reveal]')
+    if (cards.length === 0) return
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        cards,
+        { y: 40, autoAlpha: 0 },
+        {
+          y: 0,
+          autoAlpha: 1,
+          duration: 0.9,
+          ease: 'power3.out',
+          stagger: 0.1,
+          scrollTrigger: {
+            trigger: container,
+            start: 'top 85%',
+          },
+        },
+      )
+    }, container)
+
+    return () => ctx.revert()
+  }, [loading])
+
   const handleLike = async (id: string) => {
     setPosts((prevPosts) =>
       prevPosts.map((post) => (post.id === id ? { ...post, likes: post.likes + 1 } : post)),
@@ -136,9 +169,7 @@ export default function BlogPage() {
 
       <div className="container mx-auto px-4 py-16">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+        <GsapReveal
           className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-12"
         >
           <div>
@@ -151,16 +182,11 @@ export default function BlogPage() {
             </p>
           </div>
           <BlogModal />
-        </motion.div>
+        </GsapReveal>
 
         {/* Featured Post */}
         {featuredPost && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="mb-16"
-          >
+          <GsapReveal delay={0.15} className="mb-16">
             <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300 border-2">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div className="relative aspect-video lg:aspect-auto">
@@ -221,15 +247,11 @@ export default function BlogPage() {
                 </div>
               </div>
             </Card>
-          </motion.div>
+          </GsapReveal>
         )}
 
         {/* Latest Articles */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-        >
+        <GsapReveal delay={0.3}>
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-lg md:text-3xl font-bold text-gray-800">Latest Articles</h2>
           </div>
@@ -239,14 +261,9 @@ export default function BlogPage() {
               <p className="text-gray-600">No articles available at the moment.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {latestPosts.map((post, index) => (
-                <motion.div
-                  key={post.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 + index * 0.1 }}
-                >
+            <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {latestPosts.map((post) => (
+                <div key={post.id} data-reveal>
                   <Card className="h-full hover:shadow-lg transition-all duration-300 border-2 group">
                     <CardHeader className="p-0">
                       <div className="relative aspect-video overflow-hidden">
@@ -303,11 +320,11 @@ export default function BlogPage() {
                       </div>
                     </CardFooter>
                   </Card>
-                </motion.div>
+                </div>
               ))}
             </div>
           )}
-        </motion.div>
+        </GsapReveal>
       </div>
     </div>
   )

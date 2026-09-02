@@ -20,9 +20,9 @@ import {
   User,
   Building,
 } from 'lucide-react'
-import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Badge } from '@/components/ui/badge'
+import GsapReveal from '@/components/ui/gsap-reveal'
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -85,9 +85,7 @@ function Contact() {
 
       <div className="container mx-auto px-4 py-16">
         {/* Contact Methods Tabs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+        <GsapReveal
           className="flex flex-wrap gap-4 justify-center mb-12"
         >
           <Button
@@ -107,13 +105,11 @@ function Contact() {
               Technical Support
             </Button>
           </Link>
-        </motion.div>
+        </GsapReveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
           {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
+          <GsapReveal
             className="lg:col-span-2"
           >
             <Card className="shadow-xl border-2">
@@ -246,13 +242,11 @@ function Contact() {
                 </form>
               </CardContent>
             </Card>
-          </motion.div>
+          </GsapReveal>
 
           {/* Contact Information & Support Card */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
+          <GsapReveal
+            delay={0.2}
             className="space-y-6"
           >
             {/* Quick Support Card */}
@@ -388,14 +382,12 @@ function Contact() {
                 </Button>
               </CardContent>
             </Card>
-          </motion.div>
+          </GsapReveal>
         </div>
 
         {/* Map Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
+        <GsapReveal
+          delay={0.4}
           className="mt-16"
         >
           <Card className="shadow-lg border-2">
@@ -445,7 +437,7 @@ function Contact() {
               </div>
             </CardContent>
           </Card>
-        </motion.div>
+        </GsapReveal>
       </div>
     </div>
   )

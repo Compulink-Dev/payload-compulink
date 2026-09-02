@@ -1,14 +1,47 @@
 'use client'
-import React from 'react'
+import React, { useRef, useLayoutEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Headphones, Clock, Users, Wrench, Monitor, Server } from 'lucide-react'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
 import Hero from '../../_components/hero'
 import { ServiceCard } from '../../_components/service'
+import GsapReveal from '@/components/ui/gsap-reveal'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 function Technical() {
+  const cardsGridRef = useRef<HTMLDivElement>(null)
+
+  useLayoutEffect(() => {
+    const container = cardsGridRef.current
+    if (!container) return
+    const els = container.querySelectorAll('[data-reveal]')
+    if (!els.length) return
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        els,
+        { y: 40, autoAlpha: 0 },
+        {
+          y: 0,
+          autoAlpha: 1,
+          duration: 0.9,
+          ease: 'power3.out',
+          stagger: 0.08,
+          scrollTrigger: {
+            trigger: container,
+            start: 'top 85%',
+          },
+        }
+      )
+    })
+
+    return () => ctx.revert()
+  }, [])
+
   const supportServices = [
     {
       icon: <Headphones className="h-6 w-6" />,
@@ -53,10 +86,7 @@ function Technical() {
 
       <div className="container mx-auto px-4 py-16">
         {/* Service Overview */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+        <GsapReveal
           className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16"
         >
           <div>
@@ -97,7 +127,7 @@ function Technical() {
               className="rounded-2xl shadow-2xl w-full max-w-lg"
             />
           </div>
-        </motion.div>
+        </GsapReveal>
 
         {/* Support Services Grid */}
         <div className="mb-16">
@@ -107,13 +137,12 @@ function Technical() {
               Comprehensive technical support solutions to keep your business running smoothly
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div ref={cardsGridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {supportServices.map((service, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                data-reveal
+                style={{ opacity: 0 }}
               >
                 <Card className="h-full hover:shadow-lg transition-all duration-300 hover:border-orange-300 border-2">
                   <CardHeader>
@@ -126,7 +155,7 @@ function Technical() {
                     <p className="text-gray-600">{service.description}</p>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

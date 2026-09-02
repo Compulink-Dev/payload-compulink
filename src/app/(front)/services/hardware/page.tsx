@@ -1,7 +1,6 @@
 'use client'
-import React from 'react'
+import React, { useRef, useLayoutEffect } from 'react'
 import Hero from '../../_components/hero'
-import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
@@ -18,8 +17,66 @@ import {
   Cog,
 } from 'lucide-react'
 import Link from 'next/link'
+import GsapReveal from '@/components/ui/gsap-reveal'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 function Hardware() {
+  const categoriesGridRef = useRef<HTMLDivElement>(null)
+  const brandsGridRef = useRef<HTMLDivElement>(null)
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      const catContainer = categoriesGridRef.current
+      if (catContainer) {
+        const catEls = catContainer.querySelectorAll('[data-reveal]')
+        if (catEls.length) {
+          gsap.fromTo(
+            catEls,
+            { y: 40, autoAlpha: 0 },
+            {
+              y: 0,
+              autoAlpha: 1,
+              duration: 0.9,
+              ease: 'power3.out',
+              stagger: 0.08,
+              scrollTrigger: {
+                trigger: catContainer,
+                start: 'top 85%',
+              },
+            }
+          )
+        }
+      }
+
+      const brandContainer = brandsGridRef.current
+      if (brandContainer) {
+        const brandEls = brandContainer.querySelectorAll('[data-reveal]')
+        if (brandEls.length) {
+          gsap.fromTo(
+            brandEls,
+            { autoAlpha: 0, scale: 0.85 },
+            {
+              autoAlpha: 1,
+              scale: 1,
+              duration: 0.6,
+              ease: 'power3.out',
+              stagger: 0.06,
+              scrollTrigger: {
+                trigger: brandContainer,
+                start: 'top 85%',
+              },
+            }
+          )
+        }
+      }
+    })
+
+    return () => ctx.revert()
+  }, [])
+
   const hardwareCategories = [
     {
       icon: <Server className="h-8 w-8" />,
@@ -112,10 +169,7 @@ function Hardware() {
 
       <div className="container mx-auto px-4 py-16">
         {/* Main Hardware Overview */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+        <GsapReveal
           className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16"
         >
           <div>
@@ -156,7 +210,7 @@ function Hardware() {
               className="rounded-2xl shadow-2xl w-full max-w-lg"
             />
           </div>
-        </motion.div>
+        </GsapReveal>
 
         {/* Hardware Categories Grid */}
         <div className="mb-16">
@@ -166,13 +220,12 @@ function Hardware() {
               Comprehensive range of hardware solutions for every business need
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div ref={categoriesGridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {hardwareCategories.map((category, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                data-reveal
+                style={{ opacity: 0 }}
               >
                 <Card className="h-full hover:shadow-xl transition-all duration-300 hover:border-blue-300 border-2 group">
                   <CardHeader className="pb-4">
@@ -205,7 +258,7 @@ function Hardware() {
                     </Link>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -219,17 +272,16 @@ function Hardware() {
               high-performance solutions
             </p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center justify-items-center">
+          <div ref={brandsGridRef} className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center justify-items-center">
             {brands.map((brand, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                data-reveal
+                style={{ opacity: 0 }}
                 className="text-gray-500 hover:text-gray-700 transition-colors duration-300 font-semibold text-lg"
               >
                 {brand}
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

@@ -2,10 +2,10 @@
 import { Menu, X, Phone, Mail, ArrowRight } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { usePathname } from 'next/navigation'
-import { motion, AnimatePresence } from 'framer-motion'
+import gsap from 'gsap'
 
 function Navbar() {
   const links = [
@@ -16,10 +16,16 @@ function Navbar() {
     { name: 'Gallery', link: '/gallery' },
     { name: 'Blog', link: '/blog' },
     { name: 'Vacancies', link: '/vacancy' },
+    { name: 'Shop', link: 'https://compulink.odoo.com/shop' },
   ]
 
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const logoRef = useRef<HTMLDivElement>(null)
+  const menuRef = useRef<HTMLDivElement>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const ctaRef = useRef<HTMLDivElement>(null)
+  const mobileRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
 
   useEffect(() => {
@@ -30,16 +36,37 @@ function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Mobile menu open/close animation
+  useEffect(() => {
+    const el = mobileRef.current
+    if (!el) return
+
+    if (open) {
+      gsap.fromTo(
+        el,
+        { height: 0, autoAlpha: 0 },
+        { height: 'auto', autoAlpha: 1, duration: 0.35, ease: 'power3.out' }
+      )
+      gsap.fromTo(
+        el.querySelectorAll('[data-menu-item]'),
+        { y: -16, autoAlpha: 0 },
+        { y: 0, autoAlpha: 1, duration: 0.35, ease: 'power3.out', stagger: 0.06, delay: 0.1 }
+      )
+    } else {
+      gsap.to(el, { height: 0, autoAlpha: 0, duration: 0.3, ease: 'power2.in' })
+    }
+  }, [open])
+
   // Check if link is active
   const isActive = (linkPath: string) => {
-    // For home page, check exact match
     if (linkPath === '/') {
       return pathname === '/'
     }
-
-    // For other pages, check if pathname starts with the link path
-    // This handles nested routes like /services/something
     return pathname.startsWith(linkPath)
+  }
+
+  const handleHover = (e: React.MouseEvent<HTMLElement>, scale: number, rotate = 0) => {
+    gsap.to(e.currentTarget, { scale, rotate, duration: 0.3, ease: 'power2.out' })
   }
 
   return (
@@ -105,9 +132,10 @@ function Navbar() {
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <div className="flex items-center justify-between py-3 md:py-4">
             {/* Logo with Hover Effect */}
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.2 }}
+            <div
+              ref={logoRef}
+              onMouseEnter={(e) => handleHover(e, 1.05)}
+              onMouseLeave={(e) => handleHover(e, 1)}
             >
               <Link href="/" className="inline-block">
                 <Image
@@ -119,7 +147,7 @@ function Navbar() {
                   priority
                 />
               </Link>
-            </motion.div>
+            </div>
 
             {/* Desktop Navigation */}
             <ul className="hidden lg:flex items-center gap-1">
@@ -132,7 +160,7 @@ function Navbar() {
                       className="relative px-3.5 py-2 text-sm font-medium transition-all duration-300 group"
                     >
                       <span
-                        className={`transition-colors duration-300 ${
+                        className={`relative transition-colors duration-300 ${
                           scrolled
                             ? active
                               ? 'text-blue-600'
@@ -143,18 +171,12 @@ function Navbar() {
                         }`}
                       >
                         {link.name}
+                        <span
+                          className={`absolute -bottom-1.5 left-0 h-0.5 w-full rounded-full origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100 ${
+                            active ? 'scale-x-100' : 'scale-x-0'
+                          } ${scrolled ? 'bg-blue-600' : 'bg-blue-400'}`}
+                        />
                       </span>
-                      {/* Animated Underline */}
-                      <motion.span
-                        className={`absolute bottom-1 left-3.5 right-3.5 h-0.5 rounded-full ${
-                          scrolled ? 'bg-blue-600' : 'bg-blue-400'
-                        }`}
-                        initial={{ scaleX: 0 }}
-                        animate={{ scaleX: active ? 1 : 0 }}
-                        whileHover={{ scaleX: 1 }}
-                        transition={{ duration: 0.3 }}
-                        style={{ originX: 'left' }}
-                      />
                     </Link>
                   </li>
                 )
@@ -162,30 +184,27 @@ function Navbar() {
             </ul>
 
             {/* CTA Button */}
-            <div className="hidden lg:block">
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+            <div className="hidden lg:block" ref={ctaRef}>
+              <Button
+                asChild
+                onMouseEnter={(e) => handleHover(e, 1.05)}
+                onMouseLeave={(e) => handleHover(e, 1)}
+                className={`rounded-full font-semibold transition-all duration-300 flex items-center gap-2 ${
+                  scrolled
+                    ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-600/30'
+                    : 'bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm border border-white/30'
+                }`}
               >
-                <Button
-                  asChild
-                  className={`rounded-full font-semibold transition-all duration-300 flex items-center gap-2 ${
-                    scrolled
-                      ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-600/30'
-                      : 'bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm border border-white/30'
-                  }`}
-                >
-                  <Link href="/contact">
-                    Contact Us
-                    <ArrowRight size={16} />
-                  </Link>
-                </Button>
-              </motion.div>
+                <Link href="/contact">
+                  Contact Us
+                  <ArrowRight size={16} />
+                </Link>
+              </Button>
             </div>
 
             {/* Mobile Menu Button */}
-            <motion.button
-              whileTap={{ scale: 0.95 }}
+            <button
+              ref={buttonRef}
               onClick={() => setOpen(!open)}
               className={`lg:hidden p-2 rounded-lg transition-colors ${
                 scrolled
@@ -195,60 +214,46 @@ function Navbar() {
               aria-label="Toggle menu"
             >
               {open ? <X size={24} /> : <Menu size={24} />}
-            </motion.button>
+            </button>
           </div>
         </div>
 
         {/* Mobile Menu */}
-        <AnimatePresence>
-          {open && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="lg:hidden bg-white/95 backdrop-blur-md border-t border-white/20"
-            >
-              <div className="container mx-auto px-4 py-4">
-                <ul className="space-y-2">
-                  {links.map((link) => {
-                    const active = isActive(link.link)
-                    return (
-                      <motion.li
-                        key={link.name}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <Link
-                          href={link.link}
-                          onClick={() => setOpen(false)}
-                          className={`block px-4 py-3 rounded-lg transition-all font-medium ${
-                            active
-                              ? 'text-blue-600 bg-blue-50 border-l-4 border-blue-600'
-                              : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'
-                          }`}
-                        >
-                          {link.name}
-                        </Link>
-                      </motion.li>
-                    )
-                  })}
-                </ul>
-                <motion.div
-                  className="mt-4 pt-4 border-t"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <Button asChild className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold">
-                    <Link href="/contact">Contact Us</Link>
-                  </Button>
-                </motion.div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <div
+          className="lg:hidden bg-white/95 backdrop-blur-md border-t border-white/20 overflow-hidden"
+          ref={mobileRef}
+          style={{ height: 0, opacity: 0, visibility: 'hidden' }}
+        >
+          <div className="container mx-auto px-4 py-4">
+            <ul className="space-y-2">
+              {links.map((link) => {
+                const active = isActive(link.link)
+                return (
+                  <li key={link.name} data-menu-item>
+                    <Link
+                      href={link.link}
+                      onClick={() => setOpen(false)}
+                      className={`block px-4 py-3 rounded-lg transition-all font-medium ${
+                        active
+                          ? 'text-blue-600 bg-blue-50 border-l-4 border-blue-600'
+                          : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'
+                      }`}
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
+            <div className="mt-4 pt-4 border-t" data-menu-item>
+              <Button asChild className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold">
+                <Link href="/contact" onClick={() => setOpen(false)}>
+                  Contact Us
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
       </nav>
     </>
   )
