@@ -1,3 +1,11 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Support Ticket',
+  description:
+    'Submit a support ticket to Compulink Systems. Get help with technical issues, hardware problems, and software concerns.',
+}
+
 'use client'
 import React, { useState } from 'react'
 import Hero from '../_components/hero'

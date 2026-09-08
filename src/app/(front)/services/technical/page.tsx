@@ -1,3 +1,11 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Technical Support',
+  description:
+    '24/7 technical IT support in Zimbabwe. Help desk, hardware maintenance, software support, and system monitoring from Compulink.',
+}
+
 'use client'
 import React, { useRef, useLayoutEffect } from 'react'
 import { Button } from '@/components/ui/button'

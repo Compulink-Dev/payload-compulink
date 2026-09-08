@@ -1,3 +1,11 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Networking Services',
+  description:
+    'Enterprise-grade networking solutions in Zimbabwe. Wireless networks, network infrastructure, and network security from Compulink.',
+}
+
 import React from 'react'
 import ServiceTop from '../../_components/serviceTop'
 import Hero from '../../_components/hero'

@@ -1,3 +1,11 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy',
+  description:
+    'How Compulink Systems protects and handles your information. Our privacy policy and data protection practices.',
+}
+
 import React from 'react'
 import Hero from '../_components/hero'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'

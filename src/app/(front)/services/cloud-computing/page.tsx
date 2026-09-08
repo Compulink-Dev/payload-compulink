@@ -1,3 +1,11 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Cloud Computing Services',
+  description:
+    'Scalable, secure cloud computing solutions in Zimbabwe. Cloud migration, private cloud, hybrid cloud, and disaster recovery from Compulink.',
+}
+
 import MainLayout from '@/components/mainLayout'
 import React from 'react'
 import ServiceCard from '../../_components/serviceCard'

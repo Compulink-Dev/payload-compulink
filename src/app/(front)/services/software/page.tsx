@@ -1,3 +1,11 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Software Development',
+  description:
+    'Custom software development services in Zimbabwe. Web apps, mobile apps, enterprise software, AI solutions, and API integration from Compulink.',
+}
+
 import MainLayout from '@/components/mainLayout'
 import React from 'react'
 import ServiceCard from '../../_components/serviceCard'

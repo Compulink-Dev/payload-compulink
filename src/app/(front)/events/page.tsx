@@ -1,3 +1,11 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Events',
+  description:
+    'Upcoming events, workshops, and gatherings from Compulink Systems. Stay connected with technology events in Zimbabwe.',
+}
+
 import React from 'react'
 import EventCards from './_components/eventCards'
 import EventCard from './_components/eventCard'

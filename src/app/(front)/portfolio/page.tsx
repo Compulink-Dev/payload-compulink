@@ -1,3 +1,11 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Portfolio',
+  description:
+    'Discover Compulink\'s portfolio of IT projects and client successes. 30+ years of delivering technology solutions across industries.',
+}
+
 import React from 'react'
 import Services from './_components/services'
 import Software from './_components/software'

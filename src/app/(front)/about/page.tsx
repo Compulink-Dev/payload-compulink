@@ -1,3 +1,11 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'About Us',
+  description:
+    'Learn about Compulink Systems - a leading IT company in Zimbabwe with over 30 years of experience providing top-notch technology solutions.',
+}
+
 'use client'
 import MainLayout from '@/components/mainLayout'
 import GsapReveal from '@/components/ui/gsap-reveal'

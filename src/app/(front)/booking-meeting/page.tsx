@@ -1,3 +1,11 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Book a Meeting',
+  description:
+    'Schedule a meeting with Compulink Systems. Book a consultation for IT solutions and services.',
+}
+
 import React from 'react'
 import Hero from '../_components/hero'
 

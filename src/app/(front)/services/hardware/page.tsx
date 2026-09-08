@@ -1,3 +1,11 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Hardware Solutions',
+  description:
+    'Enterprise hardware solutions in Zimbabwe. Servers, workstations, storage, networking equipment, and peripherals from leading manufacturers.',
+}
+
 'use client'
 import React, { useRef, useLayoutEffect } from 'react'
 import Hero from '../../_components/hero'

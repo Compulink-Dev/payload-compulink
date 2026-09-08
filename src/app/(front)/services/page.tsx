@@ -1,3 +1,11 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Our Services',
+  description:
+    'Comprehensive IT services from Compulink: cloud computing, cybersecurity, software development, networking, hardware solutions, and IT consulting in Zimbabwe.',
+}
+
 'use client'
 import Image from 'next/image'
 import React, { useState, useRef, useLayoutEffect } from 'react'

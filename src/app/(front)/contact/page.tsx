@@ -1,3 +1,11 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Contact Us',
+  description:
+    'Get in touch with Compulink Systems. Contact us for IT solutions, support, and consultations in Zimbabwe.',
+}
+
 'use client'
 import React, { useState } from 'react'
 import ContactMap from './_components/contactMap'

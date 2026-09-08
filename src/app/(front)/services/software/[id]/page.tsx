@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import React from "react";
 import MainLayout from "@/components/mainLayout";
 import Image from "next/image";

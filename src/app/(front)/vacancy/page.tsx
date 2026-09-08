@@ -1,3 +1,11 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Careers',
+  description:
+    'Join the Compulink team. Explore career opportunities in IT, software development, networking, and cybersecurity in Zimbabwe.',
+}
+
 'use client'
 
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'

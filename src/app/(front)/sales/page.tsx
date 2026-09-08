@@ -1,3 +1,11 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Sales",
+  description:
+    "Contact Compulink sales team for IT products and solutions in Zimbabwe. Get quotes for hardware, software, and services.",
+};
+
 import MainLayout from "@/components/mainLayout";
 import React from "react";
 import Hero from "../_components/hero";

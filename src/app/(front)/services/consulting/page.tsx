@@ -1,3 +1,11 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'IT Consulting',
+  description:
+    'Strategic IT consulting services in Zimbabwe. Technology strategy, digital transformation, process optimization, and IT audits from Compulink.',
+}
+
 import React from 'react'
 import Hero from '../../_components/hero'
 import ServiceTop from '../../_components/serviceTop'

@@ -1,3 +1,11 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Blog',
+  description:
+    'Insights, news, and technology updates from Compulink Systems. Stay informed about cloud computing, cybersecurity, and IT trends in Zimbabwe.',
+}
+
 'use client'
 import {
   Archive,

@@ -1,3 +1,11 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Cyber Security Services',
+  description:
+    'Protect your business with advanced cybersecurity solutions. Threat detection, vulnerability assessment, security compliance, and incident response in Zimbabwe.',
+}
+
 import MainLayout from '@/components/mainLayout'
 import React from 'react'
 import ServiceCard from '../../_components/serviceCard'
