@@ -1,17 +1,15 @@
 import type { Metadata } from 'next'
-
-export const metadata: Metadata = {
-  title: 'Gallery',
-  description:
-    'Explore Compulink\'s gallery of projects, events, and technological innovations. Photos and videos from our 30+ year journey.',
-}
-
-'use client'
 import React from 'react'
 import VideoTab from './_components/video-tabs'
 import GalleryCard from './_components/gallery-card'
 import Hero from '../_components/hero'
 import GsapReveal from '@/components/ui/gsap-reveal'
+
+export const metadata: Metadata = {
+  title: 'Gallery',
+  description:
+    "Explore Compulink's gallery of projects, events, and technological innovations. Photos and videos from our 30+ year journey.",
+}
 
 function Gallery() {
   return (
