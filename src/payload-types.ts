@@ -73,6 +73,7 @@ export interface Config {
     events: Event;
     vacancies: Vacancy;
     applications: Application;
+    products: Product;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -86,6 +87,7 @@ export interface Config {
     events: EventsSelect<false> | EventsSelect<true>;
     vacancies: VacanciesSelect<false> | VacanciesSelect<true>;
     applications: ApplicationsSelect<false> | ApplicationsSelect<true>;
+    products: ProductsSelect<false> | ProductsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -256,6 +258,55 @@ export interface Application {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products".
+ */
+export interface Product {
+  id: string;
+  title: string;
+  slug?: string | null;
+  price: number;
+  /**
+   * Original price shown as a strikethrough when on sale
+   */
+  compareAtPrice?: number | null;
+  category: 'hardware' | 'software' | 'networking' | 'cloud-servers' | 'accessories' | 'security';
+  brand?: string | null;
+  /**
+   * Used as the upsert key for Excel imports
+   */
+  sku?: string | null;
+  image?: (string | null) | Media;
+  gallery?:
+    | {
+        image?: (string | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Short snippet shown on catalog cards
+   */
+  shortDescription?: string | null;
+  description?: string | null;
+  features?:
+    | {
+        feature?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  specs?:
+    | {
+        label: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  inStock?: boolean | null;
+  status: 'published' | 'draft';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -301,6 +352,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'applications';
         value: string | Application;
+      } | null)
+    | ({
+        relationTo: 'products';
+        value: string | Product;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -453,6 +508,45 @@ export interface ApplicationsSelect<T extends boolean = true> {
   email?: T;
   phone?: T;
   cv?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products_select".
+ */
+export interface ProductsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  price?: T;
+  compareAtPrice?: T;
+  category?: T;
+  brand?: T;
+  sku?: T;
+  image?: T;
+  gallery?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  shortDescription?: T;
+  description?: T;
+  features?:
+    | T
+    | {
+        feature?: T;
+        id?: T;
+      };
+  specs?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  inStock?: T;
+  status?: T;
   updatedAt?: T;
   createdAt?: T;
 }

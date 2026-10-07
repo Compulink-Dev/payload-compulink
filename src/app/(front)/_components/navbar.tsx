@@ -16,6 +16,7 @@ function Navbar() {
     { name: 'Gallery', link: '/gallery' },
     { name: 'Blog', link: '/blog' },
     { name: 'Vacancies', link: '/vacancy' },
+    { name: 'Catalog', link: '/catalog' },
     { name: 'Shop', link: 'https://compulink.odoo.com/shop' },
   ]
 
