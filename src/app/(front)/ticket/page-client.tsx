@@ -17,6 +17,7 @@ import {
 import { Badge } from '@/components/ui/badge'
 import GsapReveal from '@/components/ui/gsap-reveal'
 import { toast } from 'sonner'
+import posthog from 'posthog-js'
 import {
   User,
   Building,
@@ -31,6 +32,10 @@ import {
   MapPin,
   TicketIcon,
 } from 'lucide-react'
+
+const isPostHogConfigured = Boolean(
+  process.env.NEXT_PUBLIC_POSTHOG_KEY && process.env.NEXT_PUBLIC_POSTHOG_HOST,
+)
 
 function Ticket() {
   const [formData, setFormData] = useState({
@@ -104,6 +109,13 @@ function Ticket() {
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000))
 
+      if (isPostHogConfigured) {
+        posthog.capture('support_ticket_submitted', {
+          priority: formData.priority,
+          category: formData.category,
+          attachment_count: formData.attachments.length,
+        })
+      }
       toast.success('Support ticket submitted successfully!', {
         description: 'We will get back to you within 24 hours.',
       })

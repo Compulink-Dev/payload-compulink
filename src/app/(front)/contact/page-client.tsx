@@ -24,6 +24,11 @@ import {
 import Link from 'next/link'
 import { Badge } from '@/components/ui/badge'
 import GsapReveal from '@/components/ui/gsap-reveal'
+import posthog from 'posthog-js'
+
+const isPostHogConfigured = Boolean(
+  process.env.NEXT_PUBLIC_POSTHOG_KEY && process.env.NEXT_PUBLIC_POSTHOG_HOST,
+)
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -59,6 +64,9 @@ function Contact() {
       )
       .then(
         (result: any) => {
+          if (isPostHogConfigured) {
+            posthog.capture('contact_form_submitted')
+          }
           toast.success('Message sent successfully!', {
             description: 'We will get back to you within 24 hours.',
           })

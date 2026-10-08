@@ -14,6 +14,11 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Upload, Send, Loader2, CheckCircle } from 'lucide-react'
+import posthog from 'posthog-js'
+
+const isPostHogConfigured = Boolean(
+  process.env.NEXT_PUBLIC_POSTHOG_KEY && process.env.NEXT_PUBLIC_POSTHOG_HOST,
+)
 
 interface VacancyApplyModalProps {
   vacancy: {
@@ -94,6 +99,9 @@ export function VacancyApplyModal({ vacancy, isOpen, onClose }: VacancyApplyModa
       })
 
       if (response.ok) {
+        if (isPostHogConfigured) {
+          posthog.capture('job_application_submitted')
+        }
         setIsSubmitted(true)
         setTimeout(() => {
           setIsSubmitted(false)

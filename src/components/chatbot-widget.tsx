@@ -5,6 +5,11 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { MessageCircle, X, Send, Minimize2, Maximize2, CheckCircle } from 'lucide-react'
 import gsap from 'gsap'
+import posthog from 'posthog-js'
+
+const isPostHogConfigured = Boolean(
+  process.env.NEXT_PUBLIC_POSTHOG_KEY && process.env.NEXT_PUBLIC_POSTHOG_HOST,
+)
 
 interface Message {
   id: string
@@ -72,6 +77,9 @@ export default function ChatbotWidget() {
       timestamp: new Date(),
     }
 
+    if (isPostHogConfigured) {
+      posthog.capture('chatbot_message_sent', { conversation_stage: state.stage })
+    }
     setMessages((prev) => [...prev, userMessage])
     setInput('')
     setLoading(true)
@@ -128,6 +136,10 @@ export default function ChatbotWidget() {
           })
 
           if (!leadResponse.ok) throw new Error('Failed to save lead')
+
+          if (isPostHogConfigured) {
+            posthog.capture('chatbot_lead_submitted')
+          }
 
           const botMsg: Message = {
             id: (Date.now() + 1).toString(),
@@ -335,6 +347,9 @@ export default function ChatbotWidget() {
         onTouchStart={(e) => gsap.to(e.currentTarget, { scale: 0.95, duration: 0.15, ease: 'power2.out' })}
         onTouchEnd={(e) => gsap.to(e.currentTarget, { scale: 1.1, duration: 0.15, ease: 'power2.out' })}
         onClick={() => {
+          if (!isOpen && isPostHogConfigured) {
+            posthog.capture('chatbot_opened')
+          }
           setIsOpen(!isOpen)
           setIsMinimized(false)
         }}

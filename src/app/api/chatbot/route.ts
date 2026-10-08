@@ -1,4 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { after, NextRequest, NextResponse } from 'next/server'
+import { flushPostHogLogs, posthogLogger, SeverityNumber } from '../../../instrumentation'
 
 interface ChatMessage {
   id: string
@@ -136,13 +137,36 @@ export async function POST(request: NextRequest) {
     const body = (await request.json()) as ChatRequest
 
     if (!body.message || typeof body.message !== 'string') {
+      posthogLogger?.emit({
+        body: 'chatbot request rejected',
+        severityNumber: SeverityNumber.WARN,
+        severityText: 'WARN',
+        attributes: { endpoint: '/api/chatbot', reason: 'invalid_message' },
+      })
+      after(flushPostHogLogs)
+
       return NextResponse.json({ reply: 'Please provide a valid message.' }, { status: 400 })
     }
 
     const response = generateContextualResponse(body.message, body.conversationHistory || [])
 
+    posthogLogger?.emit({
+      body: 'chatbot response generated',
+      severityNumber: SeverityNumber.INFO,
+      severityText: 'INFO',
+      attributes: { endpoint: '/api/chatbot', operation: 'response_generation' },
+    })
+    after(flushPostHogLogs)
+
     return NextResponse.json({ reply: response })
   } catch (error) {
+    posthogLogger?.emit({
+      body: 'chatbot response generation failed',
+      severityNumber: SeverityNumber.ERROR,
+      severityText: 'ERROR',
+      attributes: { endpoint: '/api/chatbot', operation: 'response_generation' },
+    })
+    after(flushPostHogLogs)
     console.error('Chatbot API error:', error)
     return NextResponse.json(
       { reply: 'Sorry, I encountered an error processing your message. Please try again.' },

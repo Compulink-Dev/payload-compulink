@@ -20,6 +20,11 @@ import Hero from '../_components/hero'
 import GsapReveal from '@/components/ui/gsap-reveal'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import posthog from 'posthog-js'
+
+const isPostHogConfigured = Boolean(
+  process.env.NEXT_PUBLIC_POSTHOG_KEY && process.env.NEXT_PUBLIC_POSTHOG_HOST,
+)
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -126,6 +131,9 @@ export default function BlogPage() {
   }, [loading])
 
   const handleLike = async (id: string) => {
+    if (isPostHogConfigured) {
+      posthog.capture('blog_post_liked')
+    }
     setPosts((prevPosts) =>
       prevPosts.map((post) => (post.id === id ? { ...post, likes: post.likes + 1 } : post)),
     )

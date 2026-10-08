@@ -14,6 +14,11 @@ import { VacancyApplyModal } from './vacancyApplyModal'
 import { Badge } from '@/components/ui/badge'
 import { Calendar, Clock, Download, MapPin, DollarSign, Award, Briefcase } from 'lucide-react'
 import { format } from 'date-fns'
+import posthog from 'posthog-js'
+
+const isPostHogConfigured = Boolean(
+  process.env.NEXT_PUBLIC_POSTHOG_KEY && process.env.NEXT_PUBLIC_POSTHOG_HOST,
+)
 
 interface VacancyModalProps {
   vacancy: {
@@ -48,6 +53,10 @@ export function VacancyModal({ vacancy, onClose }: VacancyModalProps) {
   }
 
   const handleDownload = () => {
+    if (isPostHogConfigured) {
+      posthog.capture('vacancy_details_downloaded')
+    }
+
     // Create a text content for download
     const content = `
 Position: ${vacancy.position}
@@ -230,7 +239,12 @@ ${vacancy.skills?.map((s) => `• ${s}`).join('\n') || 'None specified'}
               <div className="flex gap-3">
                 {vacancy.status === 'open' ? (
                   <Button
-                    onClick={() => setIsApplyModalOpen(true)}
+                    onClick={() => {
+                      if (isPostHogConfigured) {
+                        posthog.capture('job_application_started')
+                      }
+                      setIsApplyModalOpen(true)
+                    }}
                     className="bg-blue-600 hover:bg-blue-700"
                   >
                     Apply Now
